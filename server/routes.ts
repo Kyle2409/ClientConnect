@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import bcrypt from "bcrypt";
 import session from "express-session";
-import { loginSchema, insertCustomerSchema, insertLeadSchema } from "@shared/schema";
+import { loginSchema, insertCustomerSchema, createCustomerSchema, insertLeadSchema } from "@shared/schema";
 import { z } from "zod";
 
 declare module "express-session" {
@@ -139,7 +139,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Customer routes
   app.post("/api/customers", requireAuth, requireRole("agent"), async (req, res) => {
     try {
-      const customerData = insertCustomerSchema.parse({
+      const customerData = createCustomerSchema.parse({
         ...req.body,
         agentId: req.session.userId
       });
