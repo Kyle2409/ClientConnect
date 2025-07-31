@@ -4,6 +4,20 @@
 
 This is a full-stack web application designed for a call center to sign up clients for lifestyle products. The system provides a public landing page for lead generation, an agent dashboard for managing customers and signups, and an admin dashboard for tracking overall performance and statistics.
 
+**Current Status**: Fully operational with PostgreSQL database, sample products, and test users.
+
+## Login Credentials
+- **Admin**: admin@lifestylepro.co.za / password
+- **Agent 1**: agent1@lifestylepro.co.za / password  
+- **Agent 2**: agent2@lifestylepro.co.za / password
+
+## Recent Changes (July 31, 2025)
+- ✓ Migrated from MySQL to PostgreSQL database schema
+- ✓ Added all 5 lifestyle products (OPPORTUNITY, MOMENTUM, PROSPER, PRESTIGE, PINNACLE)
+- ✓ Created sample users with proper authentication
+- ✓ Fixed navbar button visibility issues
+- ✓ Resolved API endpoint connectivity
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.

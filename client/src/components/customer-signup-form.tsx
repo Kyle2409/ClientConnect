@@ -34,7 +34,7 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
     queryKey: ["/api/products"],
     queryFn: async () => {
       const response = await apiRequest("GET", "/api/products");
-      return response.json() as Product[];
+      return response.json();
     },
   });
 
