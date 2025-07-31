@@ -42,7 +42,7 @@ export default function Landing() {
   };
 
   const handleGetStarted = () => {
-    createLeadMutation.mutate();
+    createLeadMutation.mutate(undefined);
   };
 
   // Sort products by price for display

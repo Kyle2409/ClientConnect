@@ -94,9 +94,9 @@ export class DatabaseStorage implements IStorage {
         agentId 
           ? and(
               eq(customers.agentId, agentId),
-              sql`MONTH(${customers.signupDate}) = MONTH(CURRENT_DATE()) AND YEAR(${customers.signupDate}) = YEAR(CURRENT_DATE())`
+              sql`EXTRACT(MONTH FROM ${customers.signupDate}) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${customers.signupDate}) = EXTRACT(YEAR FROM CURRENT_DATE)`
             )
-          : sql`MONTH(${customers.signupDate}) = MONTH(CURRENT_DATE()) AND YEAR(${customers.signupDate}) = YEAR(CURRENT_DATE())`
+          : sql`EXTRACT(MONTH FROM ${customers.signupDate}) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${customers.signupDate}) = EXTRACT(YEAR FROM CURRENT_DATE)`
       );
 
     const [pendingResult] = await db
@@ -156,9 +156,9 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .select({
         agentId: users.id,
-        agentName: sql<string>`CONCAT(${users.firstName}, ' ', ${users.lastName})`,
+        agentName: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
         totalSignups: count(customers.id),
-        monthlySignups: sql<number>`SUM(CASE WHEN MONTH(${customers.signupDate}) = MONTH(CURRENT_DATE()) AND YEAR(${customers.signupDate}) = YEAR(CURRENT_DATE()) THEN 1 ELSE 0 END)`,
+        monthlySignups: sql<number>`SUM(CASE WHEN EXTRACT(MONTH FROM ${customers.signupDate}) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${customers.signupDate}) = EXTRACT(YEAR FROM CURRENT_DATE) THEN 1 ELSE 0 END)`,
         totalRevenue: sql<number>`SUM(${products.monthlyPrice} * 12)`,
       })
       .from(users)
@@ -204,7 +204,7 @@ export class DatabaseStorage implements IStorage {
       .where(and(eq(users.role, "agent"), eq(users.isActive, true)));
     
     const [monthlySignupsResult] = await db.select({ count: count() }).from(customers)
-      .where(sql`MONTH(${customers.signupDate}) = MONTH(CURRENT_DATE()) AND YEAR(${customers.signupDate}) = YEAR(CURRENT_DATE())`);
+      .where(sql`EXTRACT(MONTH FROM ${customers.signupDate}) = EXTRACT(MONTH FROM CURRENT_DATE) AND EXTRACT(YEAR FROM ${customers.signupDate}) = EXTRACT(YEAR FROM CURRENT_DATE)`);
 
     const [revenueResult] = await db
       .select({ revenue: sql<number>`SUM(${products.monthlyPrice} * 12)` })

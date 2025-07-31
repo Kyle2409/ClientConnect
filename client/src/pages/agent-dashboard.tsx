@@ -230,7 +230,7 @@ export default function AgentDashboard() {
                           {customer.status}
                         </Badge>
                       </TableCell>
-                      <TableCell>{formatDate(customer.signupDate)}</TableCell>
+                      <TableCell>{formatDate(customer.signupDate.toString())}</TableCell>
                       <TableCell>
                         <div className="flex space-x-2">
                           <Button variant="ghost" size="sm">View</Button>

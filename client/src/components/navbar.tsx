@@ -69,12 +69,12 @@ export default function Navbar() {
             ) : (
               <>
                 <Link href="/login?role=agent">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-gray-900">
                     Agent Login
                   </Button>
                 </Link>
                 <Link href="/login?role=admin">
-                  <Button size="sm">
+                  <Button size="sm" className="bg-primary text-white hover:bg-primary/90">
                     Admin Login
                   </Button>
                 </Link>

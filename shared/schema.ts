@@ -1,33 +1,37 @@
 import { sql, relations } from "drizzle-orm";
-import { mysqlTable, varchar, text, int, decimal, timestamp, boolean, mysqlEnum } from "drizzle-orm/mysql-core";
+import { pgTable, varchar, text, integer, decimal, timestamp, boolean, pgEnum } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = mysqlTable("users", {
-  id: varchar("id", { length: 36 }).primaryKey().default(sql`(UUID())`),
+export const roleEnum = pgEnum("role", ["agent", "admin"]);
+export const statusEnum = pgEnum("status", ["pending", "active", "inactive", "cancelled"]);
+export const leadStatusEnum = pgEnum("lead_status", ["new", "contacted", "converted", "lost"]);
+
+export const users = pgTable("users", {
+  id: varchar("id", { length: 36 }).primaryKey().default(sql`gen_random_uuid()`),
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: text("password").notNull(),
-  role: mysqlEnum("role", ["agent", "admin"]).notNull().default("agent"),
+  role: roleEnum("role").notNull().default("agent"),
   firstName: varchar("first_name", { length: 100 }).notNull(),
   lastName: varchar("last_name", { length: 100 }).notNull(),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`),
+  updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const products = mysqlTable("products", {
-  id: varchar("id", { length: 36 }).primaryKey().default(sql`(UUID())`),
+export const products = pgTable("products", {
+  id: varchar("id", { length: 36 }).primaryKey().default(sql`gen_random_uuid()`),
   name: varchar("name", { length: 100 }).notNull().unique(),
   monthlyPrice: decimal("monthly_price", { precision: 10, scale: 2 }).notNull(),
-  activationPoints: int("activation_points").notNull(),
+  activationPoints: integer("activation_points").notNull(),
   benefits: text("benefits").notNull(), // JSON string array
   description: text("description"),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const customers = mysqlTable("customers", {
-  id: varchar("id", { length: 36 }).primaryKey().default(sql`(UUID())`),
+export const customers = pgTable("customers", {
+  id: varchar("id", { length: 36 }).primaryKey().default(sql`gen_random_uuid()`),
   firstName: varchar("first_name", { length: 100 }).notNull(),
   lastName: varchar("last_name", { length: 100 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
@@ -44,22 +48,22 @@ export const customers = mysqlTable("customers", {
   branchCode: varchar("branch_code", { length: 10 }).notNull(),
   agentId: varchar("agent_id", { length: 36 }).notNull(),
   productId: varchar("product_id", { length: 36 }).notNull(),
-  status: mysqlEnum("status", ["pending", "active", "inactive", "cancelled"]).notNull().default("pending"),
+  status: statusEnum("status").notNull().default("pending"),
   signupDate: timestamp("signup_date").notNull().default(sql`CURRENT_TIMESTAMP`),
   createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
-export const leads = mysqlTable("leads", {
-  id: varchar("id", { length: 36 }).primaryKey().default(sql`(UUID())`),
+export const leads = pgTable("leads", {
+  id: varchar("id", { length: 36 }).primaryKey().default(sql`gen_random_uuid()`),
   email: varchar("email", { length: 255 }),
   phone: varchar("phone", { length: 20 }),
   productInterest: varchar("product_interest", { length: 100 }),
   source: varchar("source", { length: 100 }).notNull().default("website"),
-  status: mysqlEnum("status", ["new", "contacted", "converted", "lost"]).notNull().default("new"),
+  status: leadStatusEnum("status").notNull().default("new"),
   agentId: varchar("agent_id", { length: 36 }),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP`),
+  updatedAt: timestamp("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
 // Relations
