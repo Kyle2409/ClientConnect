@@ -17,6 +17,9 @@ import { z } from "zod";
 
 const formSchema = insertCustomerSchema.extend({
   consent: z.boolean().refine(val => val === true, "You must accept the terms and conditions"),
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
+}).omit({
+  agentId: true,
 });
 
 interface CustomerSignupFormProps {
@@ -46,7 +49,7 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
       email: "",
       phone: "",
       idNumber: "",
-      dateOfBirth: new Date(),
+      dateOfBirth: "",
       address: "",
       city: "",
       province: "",
@@ -66,7 +69,7 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
       const { consent, ...customerData } = data;
       const response = await apiRequest("POST", "/api/customers", {
         ...customerData,
-        dateOfBirth: new Date(customerData.dateOfBirth).toISOString(),
+        dateOfBirth: customerData.dateOfBirth,
       });
       return response.json();
     },
@@ -91,7 +94,7 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
   });
 
   const handleProductChange = (productId: string) => {
-    const product = products.find(p => p.id === productId);
+    const product = products.find((p: Product) => p.id === productId);
     setSelectedProduct(product || null);
   };
 
@@ -192,8 +195,8 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
                         <Input 
                           type="date" 
                           {...field}
-                          value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : field.value}
-                          onChange={(e) => field.onChange(new Date(e.target.value))}
+                          value={typeof field.value === 'string' ? field.value : ''}
+                          onChange={(e) => field.onChange(e.target.value)}
                         />
                       </FormControl>
                       <FormMessage />
@@ -302,7 +305,7 @@ export default function CustomerSignupForm({ open, onOpenChange, selectedProduct
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {products.map((product) => (
+                          {products.map((product: Product) => (
                             <SelectItem key={product.id} value={product.id}>
                               {product.name} - R{Number(product.monthlyPrice).toFixed(0)}/month
                             </SelectItem>
