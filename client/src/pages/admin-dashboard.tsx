@@ -1,12 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Users, Bus, TrendingUp, DollarSign } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
+import type { Customer, Product } from "@shared/schema";
 
 export default function AdminDashboard() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
   const { data: stats } = useQuery({
     queryKey: ["/api/admin/stats"],
     queryFn: async () => {
@@ -17,6 +24,22 @@ export default function AdminDashboard() {
         monthlySignups: number;
         totalRevenue: number;
       };
+    },
+  });
+
+  const { data: customers = [] } = useQuery({
+    queryKey: ["/api/customers"],
+    queryFn: async () => {
+      const response = await apiRequest("GET", "/api/customers");
+      return response.json() as Customer[];
+    },
+  });
+
+  const { data: products = [] } = useQuery({
+    queryKey: ["/api/products"],
+    queryFn: async () => {
+      const response = await apiRequest("GET", "/api/products");
+      return response.json() as Product[];
     },
   });
 
@@ -46,12 +69,50 @@ export default function AdminDashboard() {
     },
   });
 
+  const updateStatusMutation = useMutation({
+    mutationFn: async ({ customerId, status }: { customerId: string; status: string }) => {
+      const response = await apiRequest("PATCH", `/api/customers/${customerId}/status`, { status });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/customers"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/stats"] });
+      toast({
+        title: "Status updated successfully",
+        description: "Customer status has been updated.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Update failed",
+        description: "Failed to update customer status.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-ZA', {
       style: 'currency',
       currency: 'ZAR',
       minimumFractionDigits: 0,
     }).format(amount);
+  };
+
+  const getProductName = (productId: string) => {
+    const product = products.find((p: Product) => p.id === productId);
+    return product?.name || 'Unknown Product';
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'active':
+        return <Badge variant="default">Active</Badge>;
+      case 'inactive':
+        return <Badge variant="destructive">Inactive</Badge>;
+      default:
+        return <Badge variant="secondary">Pending</Badge>;
+    }
   };
 
   const getProgressColor = (index: number) => {
@@ -246,6 +307,80 @@ export default function AdminDashboard() {
                       </TableCell>
                     </TableRow>
                   ))
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        {/* All Customers Table */}
+        <Card>
+          <CardHeader>
+            <CardTitle>All Customer Signups</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Customer</TableHead>
+                  <TableHead>Product</TableHead>
+                  <TableHead>Agent</TableHead>
+                  <TableHead>Signup Date</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {customers.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                      No customer signups yet
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  customers.map((customer: Customer) => {
+                    const agent = agents.find((a) => a.agentId === customer.agentId);
+                    return (
+                      <TableRow key={customer.id}>
+                        <TableCell>
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 bg-primary/10 rounded-full flex items-center justify-center">
+                              <span className="text-primary font-semibold text-sm">
+                                {customer.firstName[0]}{customer.lastName[0]}
+                              </span>
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">
+                                {customer.firstName} {customer.lastName}
+                              </div>
+                              <div className="text-sm text-gray-500">{customer.email}</div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>{getProductName(customer.productId)}</TableCell>
+                        <TableCell>{agent?.agentName || 'Unknown Agent'}</TableCell>
+                        <TableCell>{format(new Date(customer.signupDate), 'MMM dd, yyyy')}</TableCell>
+                        <TableCell>{getStatusBadge(customer.status)}</TableCell>
+                        <TableCell>
+                          <Select
+                            value={customer.status}
+                            onValueChange={(status) => 
+                              updateStatusMutation.mutate({ customerId: customer.id, status })
+                            }
+                          >
+                            <SelectTrigger className="w-32">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="active">Active</SelectItem>
+                              <SelectItem value="inactive">Inactive</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
                 )}
               </TableBody>
             </Table>

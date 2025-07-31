@@ -10,6 +10,8 @@ export interface IStorage {
 
   // Customer methods
   getCustomersByAgent(agentId: string): Promise<Customer[]>;
+  getAllCustomers(): Promise<Customer[]>;
+  updateCustomerStatus(customerId: string, status: string): Promise<void>;
   createCustomer(customer: InsertCustomer): Promise<Customer>;
   getCustomerStats(agentId?: string): Promise<{
     total: number;
@@ -68,6 +70,17 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(customers)
       .where(eq(customers.agentId, agentId))
       .orderBy(desc(customers.signupDate));
+  }
+
+  async getAllCustomers(): Promise<Customer[]> {
+    return await db.select().from(customers)
+      .orderBy(desc(customers.signupDate));
+  }
+
+  async updateCustomerStatus(customerId: string, status: string): Promise<void> {
+    await db.update(customers)
+      .set({ status })
+      .where(eq(customers.id, customerId));
   }
 
   async createCustomer(customer: InsertCustomer): Promise<Customer> {

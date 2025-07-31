@@ -157,11 +157,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (req.session.userRole === "agent") {
         const customers = await storage.getCustomersByAgent(req.session.userId!);
         res.json(customers);
+      } else if (req.session.userRole === "admin") {
+        const customers = await storage.getAllCustomers();
+        res.json(customers);
       } else {
         res.status(403).json({ message: "Forbidden" });
       }
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch customers" });
+    }
+  });
+
+  app.patch("/api/customers/:id/status", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      
+      if (!["pending", "active", "inactive"].includes(status)) {
+        return res.status(400).json({ message: "Invalid status" });
+      }
+
+      await storage.updateCustomerStatus(id, status);
+      res.json({ message: "Status updated successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update status" });
     }
   });
 
