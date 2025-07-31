@@ -1,0 +1,62 @@
+Build a full-stack web app for a call center to sign up clients for lifestyle products.
+
+Tech Stack: Use Node.js (Express) for backend, React for frontend, and MySQL for database.
+Connect to this database:
+DATABASE_URL="mysql://opianlife:h0481325303ZKb@dedi1350.jnb1.host-h.net:3306/lifestyle"
+
+💼 App Features:
+1. Landing Page:
+
+Modern design to showcase the 5 lifestyle products below.
+
+Include product name, price, and benefits.
+
+"Get Started" or "Talk to an Agent" buttons that generate leads.
+
+2. Agent Dashboard (Login required):
+
+Agents can view and manage their leads.
+
+Add new customers manually.
+
+Register a client using a selected lifestyle product.
+
+3. Admin Dashboard (Login required):
+
+View total signups per agent.
+
+Track individual agent activity.
+
+View overall statistics (product popularity, total leads, etc.)
+
+4. Customer Signup Forms:
+
+Agents can fill in personal details and select a product.
+
+Form submission saves to MySQL and links to the agent who submitted it.
+
+📦 Product List:
+1. OPPORTUNITY - R350/month - 2,500 Activation Points
+EMS Assist, Legal Assist, Repatriation Cover, Celebrate Life, 24/7 Nurse On-Call
+
+2. MOMENTUM - R450/month - 5,000 Activation Points
+Funeral Cover: R5,000, Funeral Assist, EMS Assist, Legal Assist, Repatriation Cover, Celebrate Life, 24/7 Nurse On-Call
+
+3. PROSPER - R550/month - 7,500 Activation Points
+Funeral Cover: R10,000, Accidental Death: R20,000, Funeral Assist, Family Income Benefit: R5,000 x6, EMS Assist, Legal Assist, Repatriation, Celebrate Life, 24/7 Nurse, Virtual GP, Medical 2nd Opinion
+
+4. PRESTIGE - R695/month - 10,000 Activation Points
+All from PROSPER + Crime Victim Assist, Assault & Trauma Assist, Emergency Medical Services
+
+5. PINNACLE - R825/month - 12,500 Activation Points
+All from PRESTIGE + Lawyer Assist
+
+👥 Roles:
+Admin: View all activity, agents, and signups.
+
+Agent: View leads, sign up customers, manage their own clients.
+
+🔐 Auth:
+Use simple login with email + password (hashed).
+
+Track logged-in user session to display correct dashboard.
