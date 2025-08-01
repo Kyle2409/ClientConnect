@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import ComprehensiveCustomerForm from "@/components/comprehensive-customer-form";
+import CustomerSignupForm from "@/components/customer-signup-form";
 import { Users, TrendingUp, Phone, Trophy, Plus, Search } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import type { Customer, Product } from "@shared/schema";
@@ -20,25 +20,25 @@ export default function AgentDashboard() {
     queryKey: ["/api/agent/stats"],
     queryFn: async () => {
       const response = await apiRequest("GET", "/api/agent/stats");
-      return response.json();
+      return response.json() as { total: number; monthly: number; pending: number };
     },
-  }) as { data: { total: number; monthly: number; pending: number } | undefined };
+  });
 
   const { data: customers = [] } = useQuery({
     queryKey: ["/api/customers"],
     queryFn: async () => {
       const response = await apiRequest("GET", "/api/customers");
-      return response.json();
+      return response.json() as Customer[];
     },
-  }) as { data: Customer[] };
+  });
 
   const { data: products = [] } = useQuery({
     queryKey: ["/api/products"],
     queryFn: async () => {
       const response = await apiRequest("GET", "/api/products");
-      return response.json();
+      return response.json() as Product[];
     },
-  }) as { data: Product[] };
+  });
 
   const { data: leads = [] } = useQuery({
     queryKey: ["/api/leads"],
@@ -246,7 +246,7 @@ export default function AgentDashboard() {
         </Card>
       </div>
 
-      <ComprehensiveCustomerForm
+      <CustomerSignupForm
         open={showSignupForm}
         onOpenChange={setShowSignupForm}
       />
