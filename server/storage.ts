@@ -11,7 +11,7 @@ export interface IStorage {
   // Customer methods
   getCustomersByAgent(agentId: string): Promise<Customer[]>;
   getAllCustomers(): Promise<Customer[]>;
-  updateCustomerStatus(customerId: string, status: string): Promise<void>;
+  updateCustomerStatus(customerId: string, status: "pending" | "active" | "inactive" | "cancelled"): Promise<void>;
   createCustomer(customer: InsertCustomer): Promise<Customer>;
   getCustomerStats(agentId?: string): Promise<{
     total: number;
@@ -77,7 +77,7 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(customers.signupDate));
   }
 
-  async updateCustomerStatus(customerId: string, status: string): Promise<void> {
+  async updateCustomerStatus(customerId: string, status: "pending" | "active" | "inactive" | "cancelled"): Promise<void> {
     await db.update(customers)
       .set({ status })
       .where(eq(customers.id, customerId));
