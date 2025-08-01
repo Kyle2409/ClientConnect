@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oracle Funeral Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="funeral-form.css">
+</head>
+
+<body>
+    <div class="header">
+        <p>Opian Pay Member Information</p>
+    </div>
+
+    <div class="form-container">
+        <form id="funeral-form" action="http://localhost:3000/submit" method="POST" enctype="multipart/form-data">
+            <div class="col-span-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-member-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-member-details" type="button" role="tab"
+                            aria-controls="nav-member-details" aria-selected="true">1.Member Details</button>
+                        <button class="nav-link" id="nav-spouse-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-spouse-details" type="button" role="tab"
+                            aria-controls="nav-spouse-details" aria-selected="false">2.Spouse Details</button>
+                        <button class="nav-link" id="nav-employment-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-employment-details" type="button" role="tab"
+                            aria-controls="nav-employment-details" aria-selected="false">3.Employment Details</button>
+                        <button class="nav-link" id="nav-banking-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-banking-details" type="button" role="tab"
+                            aria-controls="nav-banking-datails" aria-selected="false">4.Bank Details</button>
+                        <button class="nav-link" id="nav-affordability-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-affordability-details" type="button" role="tab"
+                            aria-controls="nav-affordability-details" aria-selected="false">5.Affordability</button>
+                        <button class="nav-link" id="nav-t-one-base-cover-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-t-one-base-cover" type="button" role="tab"
+                            aria-controls="nav-t-one-base-cover" aria-selected="false">6.Tier 1 Base Cover</button>
+                        <button class="nav-link" id="nav-parent-cover-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-parent-cover" type="button" role="tab" aria-controls="nav-parent-cover"
+                            aria-selected="false">8.Parent Cover</button>
+                        <button class="nav-link" id="nav-extended-cover-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-extended-cover" type="button" role="tab"
+                            aria-controls="nav-extended-cover" aria-selected="false">9.Extended Cover</button>
+                        <button class="nav-link" id="nav-accidental-cover-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-accidental-cover" type="button" role="tab"
+                            aria-controls="nav-accidental-cover" aria-selected="false">10.Accidental Cover</button>
+                        <button class="nav-link" id="nav-benefit-details-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-benefit-details" type="button" role="tab"
+                            aria-controls="nav-benefit-details" aria-selected="false">11.Benefit Details</button>
+                    </div>
+                </nav>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <!-- Member Details -->
+                <div class="tab-pane fade show active" id="nav-member-details" role="tabpanel"
+                    aria-labelledby="nav-member-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="title">Title:<span class="important">*</span></label>
+                                    <select required name="title" id="title" class="titles">
+                                        <option value="" disbaled selected></option>
+                                        <option value="mr">Mr.</option>
+                                        <option value="mrs">Mrs.</option>
+                                        <option value="Ms">Ms.</option>
+                                        <option value="miss">Miss.</option>
+                                        <option value="miss">Dr.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="three-inputs">
+                                <div class="input-field">
+                                    <label for="first_name">First Name:<span class="important">*</span></label>
+                                    <input required type="text" name="first_name" id="first_name"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="error-message" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="middle_name">Middle Name:</label>
+                                    <input type="text" name="middle_name" id="middle_name" pattern="^[A-Za-z\s\-]*$">
+                                    <div id="middle-name-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="last_name">Last Name:<span class="important">*</span></label>
+                                    <input required type="text" name="last_name" id="last_name"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="last-name-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="nationality">Nationality:<span class="important">*</span></label>
+                                    <select required name="nationality" id="nationality" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="South African">South African</option>
+                                        <option value="Afghan">Afghan</option>
+                                        <option value="Albanian">Albanian</option>
+                                        <option value="Algerian">Algerian</option>
+                                        <option value="American">American</option>
+                                        <option value="Andorran">Andorran</option>
+                                        <option value="Angolan">Angolan</option>
+                                        <option value="Anguillan">Anguillan</option>
+                                        <option value="Citizen of Antigua and Barbuda">Citizen of Antigua and Barbuda
+                                        </option>
+                                        <option value="Argentine">Argentine</option>
+                                        <option value="Armenian">Armenian</option>
+                                        <option value="Australian">Australian</option>
+                                        <option value="Austrian">Austrian</option>
+                                        <option value="Azerbaijani">Azerbaijani</option>
+                                        <option value="Bahamian">Bahamian</option>
+                                        <option value="Bahraini">Bahraini</option>
+                                        <option value="Bangladeshi">Bangladeshi</option>
+                                        <option value="Barbadian">Barbadian</option>
+                                        <option value="Belarusian">Belarusian</option>
+                                        <option value="Belgian">Belgian</option>
+                                        <option value="Belizean">Belizean</option>
+                                        <option value="Beninese">Beninese</option>
+                                        <option value="Bermudian">Bermudian</option>
+                                        <option value="Bhutanese">Bhutanese</option>
+                                        <option value="Bolivian">Bolivian</option>
+                                        <option value="Citizen of Bosnia and Herzegovina">Citizen of Bosnia and
+                                            Herzegovina</option>
+                                        <option value="Botswanan">Botswanan</option>
+                                        <option value="Brazilian">Brazilian</option>
+                                        <option value="British">British</option>
+                                        <option value="British Virgin Islander">British Virgin Islander</option>
+                                        <option value="Bruneian">Bruneian</option>
+                                        <option value="Bulgarian">Bulgarian</option>
+                                        <option value="Burkinan">Burkinan</option>
+                                        <option value="Burmese">Burmese</option>
+                                        <option value="Burundian">Burundian</option>
+                                        <option value="Cambodian">Cambodian</option>
+                                        <option value="Cameroonian">Cameroonian</option>
+                                        <option value="Canadian">Canadian</option>
+                                        <option value="Cape Verdean">Cape Verdean</option>
+                                        <option value="Cayman Islander">Cayman Islander</option>
+                                        <option value="Central African">Central African</option>
+                                        <option value="Chadian">Chadian</option>
+                                        <option value="Chilean">Chilean</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="Colombian">Colombian</option>
+                                        <option value="Comoran">Comoran</option>
+                                        <option value="Congolese (Congo)">Congolese (Congo)</option>
+                                        <option value="Congolese (DRC)">Congolese (DRC)</option>
+                                        <option value="Cook Islander">Cook Islander</option>
+                                        <option value="Costa Rican">Costa Rican</option>
+                                        <option value="Croatian">Croatian</option>
+                                        <option value="Cuban">Cuban</option>
+                                        <option value="Cymraes">Cymraes</option>
+                                        <option value="Cymro">Cymro</option>
+                                        <option value="Cypriot">Cypriot</option>
+                                        <option value="Czech">Czech</option>
+                                        <option value="Danish">Danish</option>
+                                        <option value="Djiboutian">Djiboutian</option>
+                                        <option value="Dominican">Dominican</option>
+                                        <option value="Citizen of the Dominican Republic">Citizen of the Dominican
+                                            Republic</option>
+                                        <option value="Dutch">Dutch</option>
+                                        <option value="East Timorese">East Timorese</option>
+                                        <option value="Ecuadorean">Ecuadorean</option>
+                                        <option value="Egyptian">Egyptian</option>
+                                        <option value="Emirati">Emirati</option>
+                                        <option value="English">English</option>
+                                        <option value="Equatorial Guinean">Equatorial Guinean</option>
+                                        <option value="Eritrean">Eritrean</option>
+                                        <option value="Estonian">Estonian</option>
+                                        <option value="Ethiopian">Ethiopian</option>
+                                        <option value="Faroese">Faroese</option>
+                                        <option value="Fijian">Fijian</option>
+                                        <option value="Filipino">Filipino</option>
+                                        <option value="Finnish">Finnish</option>
+                                        <option value="French">French</option>
+                                        <option value="Gabonese">Gabonese</option>
+                                        <option value="Gambian">Gambian</option>
+                                        <option value="Georgian">Georgian</option>
+                                        <option value="German">German</option>
+                                        <option value="Ghanaian">Ghanaian</option>
+                                        <option value="Gibraltarian">Gibraltarian</option>
+                                        <option value="Greek">Greek</option>
+                                        <option value="Greenlandic">Greenlandic</option>
+                                        <option value="Grenadian">Grenadian</option>
+                                        <option value="Guamanian">Guamanian</option>
+                                        <option value="Guatemalan">Guatemalan</option>
+                                        <option value="Citizen of Guinea-Bissau">Citizen of Guinea-Bissau</option>
+                                        <option value="Guinean">Guinean</option>
+                                        <option value="Guyanese">Guyanese</option>
+                                        <option value="Haitian">Haitian</option>
+                                        <option value="Honduran">Honduran</option>
+                                        <option value="Hong Konger">Hong Konger</option>
+                                        <option value="Hungarian">Hungarian</option>
+                                        <option value="Icelandic">Icelandic</option>
+                                        <option value="Indian">Indian</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="Iranian">Iranian</option>
+                                        <option value="Iraqi">Iraqi</option>
+                                        <option value="Irish">Irish</option>
+                                        <option value="Israeli">Israeli</option>
+                                        <option value="Italian">Italian</option>
+                                        <option value="Ivorian">Ivorian</option>
+                                        <option value="Jamaican">Jamaican</option>
+                                        <option value="Japanese">Japanese</option>
+                                        <option value="Jordanian">Jordanian</option>
+                                        <option value="Kazakh">Kazakh</option>
+                                        <option value="Kenyan">Kenyan</option>
+                                        <option value="Kittitian">Kittitian</option>
+                                        <option value="Citizen of Kiribati">Citizen of Kiribati</option>
+                                        <option value="Kosovan">Kosovan</option>
+                                        <option value="Kuwaiti">Kuwaiti</option>
+                                        <option value="Kyrgyz">Kyrgyz</option>
+                                        <option value="Lao">Lao</option>
+                                        <option value="Latvian">Latvian</option>
+                                        <option value="Lebanese">Lebanese</option>
+                                        <option value="Liberian">Liberian</option>
+                                        <option value="Libyan">Libyan</option>
+                                        <option value="Liechtenstein citizen">Liechtenstein citizen</option>
+                                        <option value="Lithuanian">Lithuanian</option>
+                                        <option value="Luxembourger">Luxembourger</option>
+                                        <option value="Macanese">Macanese</option>
+                                        <option value="Macedonian">Macedonian</option>
+                                        <option value="Malagasy">Malagasy</option>
+                                        <option value="Malawian">Malawian</option>
+                                        <option value="Malaysian">Malaysian</option>
+                                        <option value="Maldivian">Maldivian</option>
+                                        <option value="Malian">Malian</option>
+                                        <option value="Maltese">Maltese</option>
+                                        <option value="Marshallese">Marshallese</option>
+                                        <option value="Martiniquais">Martiniquais</option>
+                                        <option value="Mauritanian">Mauritanian</option>
+                                        <option value="Mauritian">Mauritian</option>
+                                        <option value="Mexican">Mexican</option>
+                                        <option value="Micronesian">Micronesian</option>
+                                        <option value="Moldovan">Moldovan</option>
+                                        <option value="Monegasque">Monegasque</option>
+                                        <option value="Mongolian">Mongolian</option>
+                                        <option value="Montenegrin">Montenegrin</option>
+                                        <option value="Montserratian">Montserratian</option>
+                                        <option value="Moroccan">Moroccan</option>
+                                        <option value="Mosotho">Mosotho</option>
+                                        <option value="Mozambican">Mozambican</option>
+                                        <option value="Namibian">Namibian</option>
+                                        <option value="Nauruan">Nauruan</option>
+                                        <option value="Nepalese">Nepalese</option>
+                                        <option value="New Zealander">New Zealander</option>
+                                        <option value="Nicaraguan">Nicaraguan</option>
+                                        <option value="Nigerian">Nigerian</option>
+                                        <option value="Nigerien">Nigerien</option>
+                                        <option value="Niuean">Niuean</option>
+                                        <option value="North Korean">North Korean</option>
+                                        <option value="Northern Irish">Northern Irish</option>
+                                        <option value="Norwegian">Norwegian</option>
+                                        <option value="Omani">Omani</option>
+                                        <option value="Pakistani">Pakistani</option>
+                                        <option value="Palauan">Palauan</option>
+                                        <option value="Palestinian">Palestinian</option>
+                                        <option value="Panamanian">Panamanian</option>
+                                        <option value="Papua New Guinean">Papua New Guinean</option>
+                                        <option value="Paraguayan">Paraguayan</option>
+                                        <option value="Peruvian">Peruvian</option>
+                                        <option value="Pitcairn Islander">Pitcairn Islander</option>
+                                        <option value="Polish">Polish</option>
+                                        <option value="Portuguese">Portuguese</option>
+                                        <option value="Prydeinig">Prydeinig</option>
+                                        <option value="Puerto Rican">Puerto Rican</option>
+                                        <option value="Qatari">Qatari</option>
+                                        <option value="Romanian">Romanian</option>
+                                        <option value="Russian">Russian</option>
+                                        <option value="Rwandan">Rwandan</option>
+                                        <option value="Salvadorean">Salvadorean</option>
+                                        <option value="Sammarinese">Sammarinese</option>
+                                        <option value="Samoan">Samoan</option>
+                                        <option value="Sao Tomean">Sao Tomean</option>
+                                        <option value="Saudi Arabian">Saudi Arabian</option>
+                                        <option value="Scottish">Scottish</option>
+                                        <option value="Senegalese">Senegalese</option>
+                                        <option value="Serbian">Serbian</option>
+                                        <option value="Citizen of Seychelles">Citizen of Seychelles</option>
+                                        <option value="Sierra Leonean">Sierra Leonean</option>
+                                        <option value="Singaporean">Singaporean</option>
+                                        <option value="Slovak">Slovak</option>
+                                        <option value="Slovenian">Slovenian</option>
+                                        <option value="Solomon Islander">Solomon Islander</option>
+                                        <option value="Somali">Somali</option>
+                                        <option value="South Korean">South Korean</option>
+                                        <option value="South Sudanese">South Sudanese</option>
+                                        <option value="Spanish">Spanish</option>
+                                        <option value="Sri Lankan">Sri Lankan</option>
+                                        <option value="St Helenian">St Helenian</option>
+                                        <option value="St Lucian">St Lucian</option>
+                                        <option value="Stateless">Stateless</option>
+                                        <option value="Sudanese">Sudanese</option>
+                                        <option value="Surinamese">Surinamese</option>
+                                        <option value="Swazi">Swazi</option>
+                                        <option value="Swedish">Swedish</option>
+                                        <option value="Swiss">Swiss</option>
+                                        <option value="Syrian">Syrian</option>
+                                        <option value="Taiwanese">Taiwanese</option>
+                                        <option value="Tajik">Tajik</option>
+                                        <option value="Tanzanian">Tanzanian</option>
+                                        <option value="Thai">Thai</option>
+                                        <option value="Togolese">Togolese</option>
+                                        <option value="Tongan">Tongan</option>
+                                        <option value="Trinidadian">Trinidadian</option>
+                                        <option value="Tristanian">Tristanian</option>
+                                        <option value="Tunisian">Tunisian</option>
+                                        <option value="Turkish">Turkish</option>
+                                        <option value="Turkmen">Turkmen</option>
+                                        <option value="Turks and Caicos Islander">Turks and Caicos Islander</option>
+                                        <option value="Tuvaluan">Tuvaluan</option>
+                                        <option value="Ugandan">Ugandan</option>
+                                        <option value="Ukrainian">Ukrainian</option>
+                                        <option value="Uruguayan">Uruguayan</option>
+                                        <option value="Uzbek">Uzbek</option>
+                                        <option value="Vatican citizen">Vatican citizen</option>
+                                        <option value="Citizen of Vanuatu">Citizen of Vanuatu</option>
+                                        <option value="Venezuelan">Venezuelan</option>
+                                        <option value="Vietnamese">Vietnamese</option>
+                                        <option value="Vincentian">Vincentian</option>
+                                        <option value="Wallisian">Wallisian</option>
+                                        <option value="Welsh">Welsh</option>
+                                        <option value="Yemeni">Yemeni</option>
+                                        <option value="Zambian">Zambian</option>
+                                        <option value="Zimbabwean">Zimbabwean</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="maiden_name">Maiden Name:</label>
+                                    <input type="text" name="maiden_name" id="maiden_name" pattern="^[A-Za-z\s\-]+$">
+                                    <div id="maiden-name-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="id_number">Identification Number:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="id_number" id="id_number" maxlength="13"
+                                        pattern="^\d{1,13}$">
+                                    <div id="id-number-error" class="error-message">Invalid input. Has to contain 13
+                                        digits, no spaces are allowed.</div>
+
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="three-inputs">
+                                <div class="input-field">
+                                    <label for="dob">Date of Birth:<span class="important">*</span></label>
+                                    <input required class="dob-input" type="date" name="dob" id="dob"
+                                        onfocus="'showPicker' in this && this.showPicker()">
+                                </div>
+                                <div class="input-field">
+                                    <label for="age">Age:<span class="important">*</span></label>
+                                    <input required class="age-input" type="number" name="age" id="age" readonly>
+                                </div>
+                                <div class="input-field">
+                                    <label for="gender">Gender:<span class="important">*</span></label>
+                                    <select required name="gender" id="gender" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="three-inputs">
+                                <div class="input-field">
+                                    <label for="physical_add_1">Physical Address Line 1:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="physical_add_1" id="physical_add_1"
+                                        pattern="^[A-Za-z0-9\s\-]+$">
+                                    <div id="physical-add-1-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="postal_add_1">Postal Address Line 1:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="postal_add_1" id="postal_add_1"
+                                        pattern="^[A-Za-z0-9\s\-]+$">
+                                    <div id="postal-add-1-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="checkbox-field">
+                                    <input type="checkbox" name="same_address" id="same_address">
+                                    <label for="same_address">postal address same as physical address</label>
+                                </div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="physical_add_2">Physical Address Line 2:</label>
+                                    <input type="text" name="physical_add_2" id="physical_add_2"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="physical-add-2-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="postal_add_2">Postal Address Line 2:</label>
+                                    <input type="text" name="postal_add_2" id="postal_add_2"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="postal-add-2-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="physical_suburb">Suburb:<span class="important">*</span></label>
+                                    <input required type="text" name="physical_suburb" id="physical_suburb"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="physical-suburb-error" class="error-message">Invalid input. Only letters
+                                        and hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="postal_suburb">Suburb:<span class="important">*</span></label>
+                                    <input required type="text" name="postal_suburb" id="postal_suburb"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="postal-suburb-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="physical_province">Province:<span class="important">*</span></label>
+                                    <select required name="physical_province" id="physical_province" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="Eastern Cape">Eastern Cape</option>
+                                        <option value="Free State">Free State</option>
+                                        <option value="Gauteng">Gauteng</option>
+                                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                        <option value="Limpopo">Limpopo</option>
+                                        <option value="Mpumalanga">Mpumalanga</option>
+                                        <option value="Northern Cape">Northern Cape</option>
+                                        <option value="North West">North West</option>
+                                        <option value="Western Cape">Western Cape</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="postal_province">Province:<span class="important">*</span></label>
+                                    <select required name="postal_province" id="postal_province" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="Eastern Cape">Eastern Cape</option>
+                                        <option value="Free State">Free State</option>
+                                        <option value="Gauteng">Gauteng</option>
+                                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                        <option value="Limpopo">Limpopo</option>
+                                        <option value="Mpumalanga">Mpumalanga</option>
+                                        <option value="Northern Cape">Northern Cape</option>
+                                        <option value="North West">North West</option>
+                                        <option value="Western Cape">Western Cape</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="physical_postal_code">Postal Code:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="physical_postal_code" id="physical_postal_code"
+                                        pattern="^\d{4}$">
+                                    <div id="physical-postal-code-error" class="error-message">Invalid input. Must be a
+                                        valid Postal Code. Postal code must contain numbers only and must be exactly 4
+                                        digits.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="postal_code">Postal Code:<span class="important">*</span></label>
+                                    <input required type="text" name="postal_code" id="postal_code" pattern="^\d{4}$">
+                                    <div id="postal-code-error" class="error-message">Invalid input. Must be a valid
+                                        Postal Code. Postal
+                                        code must contain numbers only and must be exactly 4 digits.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="four-inputs">
+                                <div class="input-field">
+                                    <label for="mobile">Contact[Mobile]:<span class="important">*</span></label>
+                                    <input required type="text" name="mobile" id="mobile" pattern="^(0|\+)\d{9,11}$">
+                                    <div id="mobile-contact-error" class="error-message">Invalid input. Phone number
+                                        must be between 10-12 digits, it should start with '0' or '+', and contain no
+                                        spaces.</div>
+
+                                </div>
+                                <div class="input-field">
+                                    <label for="whatsapp">Contact[Whatsapp]:</label>
+                                    <input type="text" name="whatsapp" id="whatsapp" pattern="^(0|\+)\d{9,11}$">
+                                    <div id="whatsapp-contact-error" class="error-message">Invalid input. Phone number
+                                        must be between 10-12 digits, it should start with '0' or '+', and contain no
+                                        spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="sms">Contact[SMS]:</label>
+                                    <input type="text" name="sms" id="sms" pattern="^(0|\+)\d{9,11}$">
+                                    <div id="sms-contact-error" class="error-message">Invalid input. Phone number
+                                        must be between 10-12 digits, it should start with '0' or '+', and contain no
+                                        spaces.</div>
+                                </div>
+                                <div class="checkbox-field">
+                                    <input type="checkbox" name="same_number" id="same_number">
+                                    <label for="same_number">whatsapp/sms same as mobile number</label>
+                                </div>
+                            </div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="email">Email Address:<span class="important">*</span></label>
+                                    <input required type="text" name="email" id="email">
+                                    <div id="email-error" class="error-message">Invalid input. Spaces are not allowed.
+                                    </div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Spouse Details -->
+                <div class="tab-pane fade" id="nav-spouse-details" role="tabpanel"
+                    aria-labelledby="nav-spouse-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="spouse_title">Title:</label>
+                                    <select name="spouse_title" id="spouse_title" class="titles">
+                                        <option value="" disbaled selected></option>
+                                        <option value="mr">Mr.</option>
+                                        <option value="mrs">Mrs.</option>
+                                        <option value="Ms">Ms.</option>
+                                        <option value="miss">Miss.</option>
+                                        <option value="miss">Dr.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="spouse_first_name">First Name:</label>
+                                    <input type="text" name="spouse_first_name" id="spouse_first_name"
+                                        pattern="^[A-Za-z\s\-]*$">
+                                    <div id="spouse-first-name-error" class="error-message">Invalid input. Only letters
+                                        and hyphens are allowed.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_last_name">Last Name:</label>
+                                    <input type="text" name="spouse_last_name" id="spouse_last_name"
+                                        pattern="^[A-Za-z\s\-]*$">
+                                    <div id="spouse-last-name-error" class="error-message">Invalid input. Only letters
+                                        and hyphens are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="spouse_nationality">Nationality:</label>
+                                    <select name="spouse_nationality" id="spouse_nationality" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="South African">South African</option>
+                                        <option value="Afghan">Afghan</option>
+                                        <option value="Albanian">Albanian</option>
+                                        <option value="Algerian">Algerian</option>
+                                        <option value="American">American</option>
+                                        <option value="Andorran">Andorran</option>
+                                        <option value="Angolan">Angolan</option>
+                                        <option value="Anguillan">Anguillan</option>
+                                        <option value="Citizen of Antigua and Barbuda">Citizen of Antigua and Barbuda
+                                        </option>
+                                        <option value="Argentine">Argentine</option>
+                                        <option value="Armenian">Armenian</option>
+                                        <option value="Australian">Australian</option>
+                                        <option value="Austrian">Austrian</option>
+                                        <option value="Azerbaijani">Azerbaijani</option>
+                                        <option value="Bahamian">Bahamian</option>
+                                        <option value="Bahraini">Bahraini</option>
+                                        <option value="Bangladeshi">Bangladeshi</option>
+                                        <option value="Barbadian">Barbadian</option>
+                                        <option value="Belarusian">Belarusian</option>
+                                        <option value="Belgian">Belgian</option>
+                                        <option value="Belizean">Belizean</option>
+                                        <option value="Beninese">Beninese</option>
+                                        <option value="Bermudian">Bermudian</option>
+                                        <option value="Bhutanese">Bhutanese</option>
+                                        <option value="Bolivian">Bolivian</option>
+                                        <option value="Citizen of Bosnia and Herzegovina">Citizen of Bosnia and
+                                            Herzegovina</option>
+                                        <option value="Botswanan">Botswanan</option>
+                                        <option value="Brazilian">Brazilian</option>
+                                        <option value="British">British</option>
+                                        <option value="British Virgin Islander">British Virgin Islander</option>
+                                        <option value="Bruneian">Bruneian</option>
+                                        <option value="Bulgarian">Bulgarian</option>
+                                        <option value="Burkinan">Burkinan</option>
+                                        <option value="Burmese">Burmese</option>
+                                        <option value="Burundian">Burundian</option>
+                                        <option value="Cambodian">Cambodian</option>
+                                        <option value="Cameroonian">Cameroonian</option>
+                                        <option value="Canadian">Canadian</option>
+                                        <option value="Cape Verdean">Cape Verdean</option>
+                                        <option value="Cayman Islander">Cayman Islander</option>
+                                        <option value="Central African">Central African</option>
+                                        <option value="Chadian">Chadian</option>
+                                        <option value="Chilean">Chilean</option>
+                                        <option value="Chinese">Chinese</option>
+                                        <option value="Colombian">Colombian</option>
+                                        <option value="Comoran">Comoran</option>
+                                        <option value="Congolese (Congo)">Congolese (Congo)</option>
+                                        <option value="Congolese (DRC)">Congolese (DRC)</option>
+                                        <option value="Cook Islander">Cook Islander</option>
+                                        <option value="Costa Rican">Costa Rican</option>
+                                        <option value="Croatian">Croatian</option>
+                                        <option value="Cuban">Cuban</option>
+                                        <option value="Cymraes">Cymraes</option>
+                                        <option value="Cymro">Cymro</option>
+                                        <option value="Cypriot">Cypriot</option>
+                                        <option value="Czech">Czech</option>
+                                        <option value="Danish">Danish</option>
+                                        <option value="Djiboutian">Djiboutian</option>
+                                        <option value="Dominican">Dominican</option>
+                                        <option value="Citizen of the Dominican Republic">Citizen of the Dominican
+                                            Republic</option>
+                                        <option value="Dutch">Dutch</option>
+                                        <option value="East Timorese">East Timorese</option>
+                                        <option value="Ecuadorean">Ecuadorean</option>
+                                        <option value="Egyptian">Egyptian</option>
+                                        <option value="Emirati">Emirati</option>
+                                        <option value="English">English</option>
+                                        <option value="Equatorial Guinean">Equatorial Guinean</option>
+                                        <option value="Eritrean">Eritrean</option>
+                                        <option value="Estonian">Estonian</option>
+                                        <option value="Ethiopian">Ethiopian</option>
+                                        <option value="Faroese">Faroese</option>
+                                        <option value="Fijian">Fijian</option>
+                                        <option value="Filipino">Filipino</option>
+                                        <option value="Finnish">Finnish</option>
+                                        <option value="French">French</option>
+                                        <option value="Gabonese">Gabonese</option>
+                                        <option value="Gambian">Gambian</option>
+                                        <option value="Georgian">Georgian</option>
+                                        <option value="German">German</option>
+                                        <option value="Ghanaian">Ghanaian</option>
+                                        <option value="Gibraltarian">Gibraltarian</option>
+                                        <option value="Greek">Greek</option>
+                                        <option value="Greenlandic">Greenlandic</option>
+                                        <option value="Grenadian">Grenadian</option>
+                                        <option value="Guamanian">Guamanian</option>
+                                        <option value="Guatemalan">Guatemalan</option>
+                                        <option value="Citizen of Guinea-Bissau">Citizen of Guinea-Bissau</option>
+                                        <option value="Guinean">Guinean</option>
+                                        <option value="Guyanese">Guyanese</option>
+                                        <option value="Haitian">Haitian</option>
+                                        <option value="Honduran">Honduran</option>
+                                        <option value="Hong Konger">Hong Konger</option>
+                                        <option value="Hungarian">Hungarian</option>
+                                        <option value="Icelandic">Icelandic</option>
+                                        <option value="Indian">Indian</option>
+                                        <option value="Indonesian">Indonesian</option>
+                                        <option value="Iranian">Iranian</option>
+                                        <option value="Iraqi">Iraqi</option>
+                                        <option value="Irish">Irish</option>
+                                        <option value="Israeli">Israeli</option>
+                                        <option value="Italian">Italian</option>
+                                        <option value="Ivorian">Ivorian</option>
+                                        <option value="Jamaican">Jamaican</option>
+                                        <option value="Japanese">Japanese</option>
+                                        <option value="Jordanian">Jordanian</option>
+                                        <option value="Kazakh">Kazakh</option>
+                                        <option value="Kenyan">Kenyan</option>
+                                        <option value="Kittitian">Kittitian</option>
+                                        <option value="Citizen of Kiribati">Citizen of Kiribati</option>
+                                        <option value="Kosovan">Kosovan</option>
+                                        <option value="Kuwaiti">Kuwaiti</option>
+                                        <option value="Kyrgyz">Kyrgyz</option>
+                                        <option value="Lao">Lao</option>
+                                        <option value="Latvian">Latvian</option>
+                                        <option value="Lebanese">Lebanese</option>
+                                        <option value="Liberian">Liberian</option>
+                                        <option value="Libyan">Libyan</option>
+                                        <option value="Liechtenstein citizen">Liechtenstein citizen</option>
+                                        <option value="Lithuanian">Lithuanian</option>
+                                        <option value="Luxembourger">Luxembourger</option>
+                                        <option value="Macanese">Macanese</option>
+                                        <option value="Macedonian">Macedonian</option>
+                                        <option value="Malagasy">Malagasy</option>
+                                        <option value="Malawian">Malawian</option>
+                                        <option value="Malaysian">Malaysian</option>
+                                        <option value="Maldivian">Maldivian</option>
+                                        <option value="Malian">Malian</option>
+                                        <option value="Maltese">Maltese</option>
+                                        <option value="Marshallese">Marshallese</option>
+                                        <option value="Martiniquais">Martiniquais</option>
+                                        <option value="Mauritanian">Mauritanian</option>
+                                        <option value="Mauritian">Mauritian</option>
+                                        <option value="Mexican">Mexican</option>
+                                        <option value="Micronesian">Micronesian</option>
+                                        <option value="Moldovan">Moldovan</option>
+                                        <option value="Monegasque">Monegasque</option>
+                                        <option value="Mongolian">Mongolian</option>
+                                        <option value="Montenegrin">Montenegrin</option>
+                                        <option value="Montserratian">Montserratian</option>
+                                        <option value="Moroccan">Moroccan</option>
+                                        <option value="Mosotho">Mosotho</option>
+                                        <option value="Mozambican">Mozambican</option>
+                                        <option value="Namibian">Namibian</option>
+                                        <option value="Nauruan">Nauruan</option>
+                                        <option value="Nepalese">Nepalese</option>
+                                        <option value="New Zealander">New Zealander</option>
+                                        <option value="Nicaraguan">Nicaraguan</option>
+                                        <option value="Nigerian">Nigerian</option>
+                                        <option value="Nigerien">Nigerien</option>
+                                        <option value="Niuean">Niuean</option>
+                                        <option value="North Korean">North Korean</option>
+                                        <option value="Northern Irish">Northern Irish</option>
+                                        <option value="Norwegian">Norwegian</option>
+                                        <option value="Omani">Omani</option>
+                                        <option value="Pakistani">Pakistani</option>
+                                        <option value="Palauan">Palauan</option>
+                                        <option value="Palestinian">Palestinian</option>
+                                        <option value="Panamanian">Panamanian</option>
+                                        <option value="Papua New Guinean">Papua New Guinean</option>
+                                        <option value="Paraguayan">Paraguayan</option>
+                                        <option value="Peruvian">Peruvian</option>
+                                        <option value="Pitcairn Islander">Pitcairn Islander</option>
+                                        <option value="Polish">Polish</option>
+                                        <option value="Portuguese">Portuguese</option>
+                                        <option value="Prydeinig">Prydeinig</option>
+                                        <option value="Puerto Rican">Puerto Rican</option>
+                                        <option value="Qatari">Qatari</option>
+                                        <option value="Romanian">Romanian</option>
+                                        <option value="Russian">Russian</option>
+                                        <option value="Rwandan">Rwandan</option>
+                                        <option value="Salvadorean">Salvadorean</option>
+                                        <option value="Sammarinese">Sammarinese</option>
+                                        <option value="Samoan">Samoan</option>
+                                        <option value="Sao Tomean">Sao Tomean</option>
+                                        <option value="Saudi Arabian">Saudi Arabian</option>
+                                        <option value="Scottish">Scottish</option>
+                                        <option value="Senegalese">Senegalese</option>
+                                        <option value="Serbian">Serbian</option>
+                                        <option value="Citizen of Seychelles">Citizen of Seychelles</option>
+                                        <option value="Sierra Leonean">Sierra Leonean</option>
+                                        <option value="Singaporean">Singaporean</option>
+                                        <option value="Slovak">Slovak</option>
+                                        <option value="Slovenian">Slovenian</option>
+                                        <option value="Solomon Islander">Solomon Islander</option>
+                                        <option value="Somali">Somali</option>
+                                        <option value="South Korean">South Korean</option>
+                                        <option value="South Sudanese">South Sudanese</option>
+                                        <option value="Spanish">Spanish</option>
+                                        <option value="Sri Lankan">Sri Lankan</option>
+                                        <option value="St Helenian">St Helenian</option>
+                                        <option value="St Lucian">St Lucian</option>
+                                        <option value="Stateless">Stateless</option>
+                                        <option value="Sudanese">Sudanese</option>
+                                        <option value="Surinamese">Surinamese</option>
+                                        <option value="Swazi">Swazi</option>
+                                        <option value="Swedish">Swedish</option>
+                                        <option value="Swiss">Swiss</option>
+                                        <option value="Syrian">Syrian</option>
+                                        <option value="Taiwanese">Taiwanese</option>
+                                        <option value="Tajik">Tajik</option>
+                                        <option value="Tanzanian">Tanzanian</option>
+                                        <option value="Thai">Thai</option>
+                                        <option value="Togolese">Togolese</option>
+                                        <option value="Tongan">Tongan</option>
+                                        <option value="Trinidadian">Trinidadian</option>
+                                        <option value="Tristanian">Tristanian</option>
+                                        <option value="Tunisian">Tunisian</option>
+                                        <option value="Turkish">Turkish</option>
+                                        <option value="Turkmen">Turkmen</option>
+                                        <option value="Turks and Caicos Islander">Turks and Caicos Islander</option>
+                                        <option value="Tuvaluan">Tuvaluan</option>
+                                        <option value="Ugandan">Ugandan</option>
+                                        <option value="Ukrainian">Ukrainian</option>
+                                        <option value="Uruguayan">Uruguayan</option>
+                                        <option value="Uzbek">Uzbek</option>
+                                        <option value="Vatican citizen">Vatican citizen</option>
+                                        <option value="Citizen of Vanuatu">Citizen of Vanuatu</option>
+                                        <option value="Venezuelan">Venezuelan</option>
+                                        <option value="Vietnamese">Vietnamese</option>
+                                        <option value="Vincentian">Vincentian</option>
+                                        <option value="Wallisian">Wallisian</option>
+                                        <option value="Welsh">Welsh</option>
+                                        <option value="Yemeni">Yemeni</option>
+                                        <option value="Zambian">Zambian</option>
+                                        <option value="Zimbabwean">Zimbabwean</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_maiden_name">Maiden Name:</label>
+                                    <input type="text" name="spouse_maiden_name" id="spouse_maiden_name"
+                                        pattern="^[A-Za-z\s\-]*$">
+                                    <div id="spouse-maiden-name-error" class="error-message">Invalid input. Only letters
+                                        and hyphens are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="spouse_id_number">Identification Number:</label>
+                                    <input type="text" name="spouse_id_number" id="spouse_id_number" maxlength="13"
+                                        pattern="^\d{1,13}$">
+                                    <div id="spouse-id-number-error" class="error-message">Invalid input. Has to contain
+                                        13 digits, no spaces are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="spouse_dob">Date of Birth</label>
+                                    <input class="dob-input" type="date" name="spouse_dob" id="spouse_dob"
+                                        onfocus="'showPicker' in this && this.showPicker()">
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_age">Age</label>
+                                    <input class="age-input" type="text" name="spouse_age" id="spouse_age">
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="four-inputs">
+                                <div class="input-field">
+                                    <label for="spouse_mobile">Contact[Mobile]:</label>
+                                    <input type="text" name="spouse_mobile" id="spouse_mobile"
+                                        pattern="^(0|\+)\d{9,11}$">
+                                    <div id="spouse-mobile-contact-error" class="error-message">Invalid input. Phone
+                                        number must be between 10-12 digits, it should start with '0' or '+', and
+                                        contain no spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_whatsapp">Contact[Whatsapp]:</label>
+                                    <input type="text" name="spouse_whatsapp" id="spouse_whatsapp"
+                                        pattern="^(0|\+)\d{9,11}$">
+                                    <div id="spouse-whatsapp-contact-error" class="error-message">Invalid input. Phone
+                                        number must be between 10-12 digits, it should start with '0' or '+', and
+                                        contain no spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_sms">Contact[SMS]:</label>
+                                    <input type="text" name="spouse_sms" id="spouse_sms" pattern="^(0|\+)\d{9,11}$">
+                                    <div id="spouse-sms-contact-error" class="error-message">Invalid input. Phone
+                                        number must be between 10-12 digits, it should start with '0' or '+', and
+                                        contain no spaces.</div>
+                                </div>
+                                <div class="checkbox-field">
+                                    <input type="checkbox" name="spouse_same_number" id="spouse_same_number">
+                                    <label for="spouse_same_number">whatsapp/sms same as mobile number</label>
+                                </div>
+                            </div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="spouse_email">Email Address:</label>
+                                    <input type="text" name="spouse_email" id="spouse_email">
+                                    <div id="spouse-email-error" class="error-message">Invalid input. Spaces are not
+                                        allowed.
+                                    </div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Employment Details -->
+                <div class="tab-pane fade" id="nav-employment-details" role="tabpanel"
+                    aria-labelledby="nav-employment-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <h5>Main Member Employment Details</h5>
+                                </div>
+                                <div class="input-field">
+                                    <h5>Spouse Employment Details</h5>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="occupation">Occupation:<span class="important">*</span></label>
+                                    <input required type="text" name="occupation" id="occupation"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="occupation-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_occupation">Occupation:</label>
+                                    <input type="text" name="spouse_occupation" id="spouse_occupation"
+                                        pattern="^[A-Za-z\s\-]*$">
+                                    <div id="spouse-occupation-error" class="error-message">Invalid input. Only letters
+                                        and
+                                        hyphens are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="appointment_date">Appointment Date:<span
+                                            class="important">*</span></label>
+                                    <input required type="date" name="appointment_date" id="appointment_date"
+                                        onfocus="'showPicker' in this && this.showPicker()">
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_appointment_date">Appointment Date:</label>
+                                    <input type="date" name="spouse_appointment_date" id="spouse_appointment_date"
+                                        onfocus="'showPicker' in this && this.showPicker()">
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer">Employer:<span class="important">*</span></label>
+                                    <input required type="text" name="employer" id="employer"
+                                        pattern="^[A-Za-z0-9\s\-]+$">
+                                    <div id="employer-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer">Employer:</label>
+                                    <input type="text" name="spouse_employer" id="spouse_employer"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="spouse-employer-error" class="error-message">Invalid input. Only letters
+                                        and numbers are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer_add_1">Employer Address Line 1:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="employer_add_1" id="employer_add_1"
+                                        pattern="^[A-Za-z0-9\s\-]+$">
+                                    <div id="employer-add-1-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer_add_1">Employer Address Line 1:</label>
+                                    <input type="text" name="spouse_employer_add_1" id="spouse_employer_add_1"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="spouse-employer-add-1-error" class="error-message">Invalid input. Only
+                                        letters and numbers are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer_add_2">Employer Address Line 2:</label>
+                                    <input type="text" name="employer_add_2" id="employer_add_2"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="employer-add-2-error" class="error-message">Invalid input. Only letters and
+                                        numbers are allowed.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer_add_2">Employer Address Line 2:</label>
+                                    <input type="text" name="spouse_employer_add_2" id="spouse_employer_add_2"
+                                        pattern="^[A-Za-z0-9\s\-]*$">
+                                    <div id="spouse-employer-add-2-error" class="error-message">Invalid input. Only
+                                        letters and numbers are allowed.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer_suburb">Suburb:<span class="important">*</span></label>
+                                    <input required type="text" name="employer_suburb" id="employer_suburb"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="employer-suburb-error" class="error-message">Invalid input. Only letters
+                                        and hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer_suburb">Suburb:</label>
+                                    <input type="text" name="spouse_employer_suburb" id="spouse_employer_suburb"
+                                        pattern="^[A-Za-z\s\-]*$">
+                                    <div id="spouse-employer-suburb-error" class="error-message">Invalid input. Only
+                                        letters
+                                        and hyphens are allowed</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer_province">Province:<span class="important">*</span></label>
+                                    <select required name="employer_province" id="employer_province" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="Eastern Cape">Eastern Cape</option>
+                                        <option value="Free State">Free State</option>
+                                        <option value="Gauteng">Gauteng</option>
+                                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                        <option value="Limpopo">Limpopo</option>
+                                        <option value="Mpumalanga">Mpumalanga</option>
+                                        <option value="Northern Cape">Northern Cape</option>
+                                        <option value="North West">North West</option>
+                                        <option value="Western Cape">Western Cape</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer_province">Province:</label>
+                                    <select name="spouse_employer_province" id="spouse_employer_province"
+                                        class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="Eastern Cape">Eastern Cape</option>
+                                        <option value="Free State">Free State</option>
+                                        <option value="Gauteng">Gauteng</option>
+                                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                        <option value="Limpopo">Limpopo</option>
+                                        <option value="Mpumalanga">Mpumalanga</option>
+                                        <option value="Northern Cape">Northern Cape</option>
+                                        <option value="North West">North West</option>
+                                        <option value="Western Cape">Western Cape</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="employer_postal_code">Postal Code:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="employer_postal_code" id="employer_postal_code"
+                                        pattern="^\d{4}$">
+                                    <div id="employer-postal-code-error" class="error-message">Invalid input. Must be a
+                                        valid Postal Code. Postal code must contain numbers only and must be exactly 4
+                                        digits.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_employer_postal_code">Postal Code:</label>
+                                    <input type="text" name="spouse_employer_postal_code"
+                                        id="spouse_employer_postal_code" pattern="^\d{4}$">
+                                    <div id="spouse-employer-postal-code-error" class="error-message">Invalid input.
+                                        Must be a
+                                        valid Postal Code. Postal code must contain numbers only and must be exactly 4
+                                        digits.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="sector">Industry/Sector:<span class="important">*</span></label>
+                                    <select required name="sector" id="sector" class="dropdowns">
+                                        <option value="" disbaled selected></option>
+                                        <option value="government">Government</option>
+                                        <option value="semi-government">Semi-Government</option>
+                                        <option value="private">Private Sector</option>
+                                        <option value="informal">Informal Sector</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_sector">Industry/Sector:</label>
+                                    <select name="spouse_sector" id="spouse_sector" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="governemnt">Goverment</option>
+                                        <option value="semi-government">Semi-Government</option>
+                                        <option value="private">Private Sector</option>
+                                        <option value="informal">Informal Sector</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="gross_salary">Gross Salary:<span class="important">*</span></label>
+                                    <input required type="text" name="gross_salary" id="gross_salary"
+                                        pattern="^[0-9.\s]+$">
+                                    <div id="gross-salary-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_gross_salary">Gross Salary:</label>
+                                    <input type="text" name="spouse_gross_salary" id="spouse_gross_salary"
+                                        pattern="^[0-9.\s]*$">
+                                    <div id="spouse-gross-salary-error" class="error-message">Please enter a valid input
+                                        (numbers only).</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="salary_type">Salary Type:<span class="important">*</span></label>
+                                    <select required name="salary_type" id="salary_type" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="fortnightly">Fortnightly</option>
+                                        <option value="weekly">Weekly</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_salary_type">Salary Type:</label>
+                                    <select name="spouse_salary_type" id="spouse_salary_type" class="dropdowns">
+                                        <option value="" disbaled selected></option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="fortnightly">Fortnightly</option>
+                                        <option value="weekly">Weekly</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="employment-inputs">
+                                <div class="input-field">
+                                    <label for="salary_date">Salary Date:<span class="important">*</span></label>
+                                    <select required name="salary_date" id="salary_date" class="dropdowns">
+                                        <option disabled selected=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="spouse_salary_date">Salary Date:</label>
+                                    <select name="spouse_salary_date" id="spouse_salary_date"
+                                        class="dropdowns">
+                                        <option disabled selected=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Bank Details -->
+                <div class="tab-pane fade" id="nav-banking-details" role="tabpanel"
+                    aria-labelledby="nav-banking-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="account_holder">Account Holder:<span class="important">*</span></label>
+                                    <input required type="text" name="account_holder" id="account_holder"
+                                        pattern="^[A-Za-z\s\-]+$">
+                                    <div id="account-holder-error" class="error-message">Invalid input. Only letters and
+                                        hyphens are allowed, input cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="bank">Bank/Institution<span class="important">*</span></label>
+                                    <select required name="bank" id="bank" class="dropdowns">
+                                        <option value="" disbaled selected></option>
+                                        <option value="opay">Opian Pay</option>
+                                        <option value="absa">ABSA</option>
+                                        <option value="fnb">FNB</option>
+                                        <option value="nedbank">Nedbank</option>
+                                        <option value="capitec">Capitec</option>
+                                        <option value="sbsa">Standard Bank</option>
+                                        <option value="disc">Discovery Bank</option>
+                                    </select>
+                                </div>
+                                <div class="input-field">
+                                    <label for="account_number">Account Number:<span class="important">*</span></label>
+                                    <input required type="text" name="account_number" id="account_number"
+                                        pattern="^[0-9\s]+$">
+                                    <div id="account-number-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="branch_code">Branch Code:<span class="important">*</span></label>
+                                    <input required type="text" name="branch_code" id="branch_code"
+                                        pattern="^[0-9\s]+$">
+                                    <div id="branch-code-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="account_type">Account Type:<span class="important">*</span></label>
+                                    <select required name="account_type" id="account_type" class="dropdowns">
+                                        <option value="" disabled selected></option>
+                                        <option value="savings">Savings</option>
+                                        <option value="cheque">Cheque</option>
+                                    </select>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Affordability Details -->
+                <div class="tab-pane fade" id="nav-affordability-details" role="tabpanel"
+                    aria-labelledby="nav-affordability-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <h5 style="padding-left: 5px; padding-top:5px;">INCOME</h5>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="income_household">Income-Household:<span
+                                            class="important">*</span></label>
+                                    <input required type="text" name="income_household" id="income_household"
+                                        pattern="^[0-9.\s]+$">
+                                    <div id="income-household-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="income_affordability">Income-Affordability:</label>
+                                    <input type="text" name="income_affordability" id="income_affordability"
+                                        class="totals" readonly>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <h5 style="padding-left: 5px; padding-top:5px; margin-top:10px;">EXPENSES</h5>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="rent">Bond/Rent:<span class="important">*</span></label>
+                                    <input required type="text" name="rent" id="rent" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="rent-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="transport">Transport/Petrol:<span class="important">*</span></label>
+                                    <input required type="text" name="transport" id="transport" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="transport-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="groceries">Groceries:<span class="important">*</span></label>
+                                    <input required type="text" name="groceries" id="groceries" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="groceries-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="retail">Retail Accounts:<span class="important">*</span></label>
+                                    <input required type="text" name="retail" id="retail" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="retail-accounts-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="school_fees">School Fees:<span class="important">*</span></label>
+                                    <input required type="text" name="school_fees" id="school_fees"
+                                        pattern="^[0-9.\s]+$" class="expense-input">
+                                    <div id="school-fees-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="entertainment">Entertainment:<span class="important">*</span></label>
+                                    <input required type="text" name="entertainment" id="entertainment"
+                                        pattern="^[0-9.\s]+$" class="expense-input">
+                                    <div id="entertainment-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="two-inputs">
+                                <div class="input-field">
+                                    <label for="cellular">Mobile/Cellular:<span class="important">*</span></label>
+                                    <input required type="text" name="cellular" id="cellular" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="cellular-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <div class="input-field">
+                                    <label for="other">Other:<span class="important">*</span></label>
+                                    <input required type="text" name="other" id="other" pattern="^[0-9.\s]+$"
+                                        class="expense-input">
+                                    <div id="other-error" class="error-message">Please enter a valid input
+                                        (numbers only). Cannot consist solely of spaces.</div>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                            <div class="one-input">
+                                <div class="input-field">
+                                    <label for="total_expenses">Total Expenses:</label>
+                                    <input type="text" name="total_expenses" id="total_expenses" class="totals"
+                                        readonly>
+                                </div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                                <!-- filler div -->
+                                <div class="input-field"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Tier 1 and 2 Base Cover -->
+                <div class="tab-pane fade" id="nav-t-one-base-cover" role="tabpanel"
+                    aria-labelledby="nav-t-one-base-cover-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <h5 style="padding-left: 5px; padding-top:5px; text-align: center;">Tier 1 Base Cover</h5>
+                            <table class="tables" id="client-table">
+                                <thead>
+                                    <tr>
+                                        <th>Client</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Age</th>
+                                        <th>Relation</th>
+                                        <th>Cover Amount</th>
+                                        <th>Premium</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input class="table-input" type="text" name="client_first_name_0" id="client_first_name_0"
+                                                pattern="^[A-Za-z\s\-]+$">
+                                            <div id="tier-one-first-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="client_last_name_0" id="client_last_name_0"
+                                                pattern="^[A-Za-z\s\-]+$">
+                                            <div id="tier-one-last-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        </td>
+                                        <td><input class="dob-table-input" type="date" name="client_dob_0"
+                                                id="client_dob_0" onfocus="'showPicker' in this && this.showPicker()">
+                                        </td>
+                                        <td><input class="age-table-input" type="text" name="client_age_0"
+                                                id="client_age_0" readonly></td>
+                                        <td><select class="table-input" name="client_relation_0" id="client_relation_0" class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="main_member">Main Member</option>
+                                                <option value="spouse">Spouse/Partner</option>
+                                                <option value="son">Son</option>
+                                                <option value="daughter">Daughter</option>
+                                            </select></td>
+                                        <td id="cover-amount-cell-0"><input class="table-input" type="text" name="client_cover_amt_0"
+                                                id="client_cover_amt_0" disabled></td>
+                                        <td><input class="table-input" type="text" name="client_premium_0" id="client_premium_0" disabled>
+                                        </td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-client-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="upsell">
+                            <input type="checkbox" id="upsell">
+                            <label for="upsell">Upsell</label>
+                        </div>
+                        <div id="tier-two-container" class="hidden">
+                            <h5 style="padding-left: 5px; text-align: center;">Tier 2 Base Cover</h5>
+                            <table class="tables" id="client-two-table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Age</th>
+                                        <th>Relation</th>
+                                        <th>Cover Amount</th>
+                                        <th>Premium</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="table-input" type="text" name="two_client_first_name_0"
+                                                id="two_client_first_name_0" pattern="^[A-Za-z\s\-]*$">
+                                            <div id="tier-two-first-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="two_client_last_name_0" id="two_client_last_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="tier-two-last-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="dob-table-input" type="date" name="two_client_dob_0"
+                                                id="two_client_dob_0"
+                                                onfocus="'showPicker' in this && this.showPicker()"></td>
+                                        <td><input class="age-table-input" type="text" name="two_client_age_0"
+                                                id="two_client_age_0" readonly></td>
+                                        <td><select class="table-input" name="two_client_relation_0" id="two_client_relation_0"
+                                                class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="main_member">Main Member</option>
+                                                <option value="spouse">Spouse/Partner</option>
+                                                <option value="son">Son</option>
+                                                <option value="daughter">Daughter</option>
+                                            </select></td>
+                                        <td><input class="table-input" type="text" name="two_client_cover_amt_0" id="two_client_cover_amt_0"
+                                                disabled>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="two_client_premium_0" id="two_client_premium_0"
+                                                disabled>
+                                        </td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-client-two-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="one-input">
+                            <div class="input-field">
+                                <label for="total">Total:</label>
+                                <input type="text" name="total" id="total" class="totals" readonly>
+                            </div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Parent Cover -->
+                <div class="tab-pane fade" id="nav-parent-cover" role="tabpanel" aria-labelledby="nav-parent-cover-tab"
+                    tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <table class="tables" id="parent-table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Age</th>
+                                        <th>Relation</th>
+                                        <th>Cover Amount</th>
+                                        <th>premium</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="table-input" type="text" name="parent_first_name_0" id="parent_first_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="parent-first-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="parent_last_name_0" id="parent_last_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="parent-last-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="dob-table-input" type="date" name="parent_dob_0"
+                                                id="parent_dob_0" onfocus="'showPicker' in this && this.showPicker()">
+                                        </td>
+                                        <td><input class="age-table-input" type="text" name="parent_age_0"
+                                                id="parent_age_0" readonly></td>
+                                        <td><select class="table-input" name="parent_relation_0" id="parent_relation_0" class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="mother">Mother</option>
+                                                <option value="mother-in-law">Mother-in-law</option>
+                                                <option value="father">Father</option>
+                                                <option value="father-in-law">Father-in-law</option>
+                                            </select></td>
+                                        <td><input class="table-input" type="text" name="parent_cover_amt_0" id="parent_cover_amt_0"
+                                                disabled></td>
+                                        <td><input class="table-input" type="text" name="parent_premium_0" id="parent_premium_0" disabled>
+                                        </td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-parent-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="one-input">
+                            <div class="input-field">
+                                <label for="parent_total">Total:</label>
+                                <input type="text" name="parent_total" id="parent_total" class="totals" readonly>
+                            </div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Extended Cover -->
+                <div class="tab-pane fade" id="nav-extended-cover" role="tabpanel"
+                    aria-labelledby="nav-extended-cover-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <table class="tables" id="extended-table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Age</th>
+                                        <th>Relation</th>
+                                        <th>Cover Amount</th>
+                                        <th>Premium</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="table-input" type="text" name="extended_first_name_0" id="extended_first_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="extended-first-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="extended_last_name_0" id="extended_last_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="extended-last-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="dob-table-input" type="date" name="extended_dob_0"
+                                                id="extended_dob_0" onfocus="'showPicker' in this && this.showPicker()">
+                                        </td>
+                                        <td><input class="age-table-input" type="text" name="extended_age_0"
+                                                id="extended_age_0" readonly></td>
+                                        <td><select class="table-input" name="extended_relation_0" id="extended_relation_0"
+                                                class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="?">?</option>
+                                            </select></td>
+                                        <td><input class="table-input" type="text" name="extended_cover_amt_0" id="extended_cover_amt_0"
+                                                disabled>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="extended_premium_0" id="extended_premium_0"
+                                                disabled></td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-extended-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="one-input">
+                            <div class="input-field">
+                                <label for="extended_total">Total:</label>
+                                <input type="text" name="extended_total" id="extended_total" class="totals" readonly>
+                            </div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Accidental Cover -->
+                <div class="tab-pane fade" id="nav-accidental-cover" role="tabpanel"
+                    aria-labelledby="nav-benefit-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <table class="tables" id="accidental-table">
+                                <thead>
+                                    <tr>
+                                        <th>Member Name</th>
+                                        <th>Date of Birth</th>
+                                        <th>Age</th>
+                                        <th>Relation</th>
+                                        <th>Cover Amount</th>
+                                        <th>Premium</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="table-input" type="text" name="accidental_member_name_0"
+                                                id="accidental_member_name_0" pattern="^[A-Za-z\s\-]*$">
+                                            <div id="accidental-member-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="dob-table-input" type="date" name="accidental_dob_0" id="accidental_dob_0"
+                                                onfocus="'showPicker' in this && this.showPicker()"></td>
+                                        <td><input class="age-table-input" type="text" name="accidental_age_0" id="accidental_age_0" readonly></td>
+                                        <td><select class="table-input" name="accidental_relation_0" id="accidental_relation_0" class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="main_member">Main Member</option>
+                                                <option value="spouse">Spouse/Partner</option>
+                                            </select></td>
+                                        <td><input class="table-input" type="text" name="accidental_cover_amt_0"
+                                                id="accidental_cover_amt_0" disabled></td>
+                                        <td><input class="table-input" type="text" name="accidental_premium_0" id="accidental_premium_0" disabled>
+                                        </td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-accidental-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="one-input">
+                            <div class="input-field">
+                                <label for="accidental_total">Total:</label>
+                                <input type="text" name="accidental_total" id="accidental_total" class="totals"
+                                    readonly>
+                            </div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Benefit Details -->
+                <div class="tab-pane fade" id="nav-benefit-details" role="tabpanel"
+                    aria-labelledby="nav-benefit-details-tab" tabindex="0">
+                    <fieldset class="member-information">
+                        <div>
+                            <table class="tables" id="benefit-table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Identification Number</th>
+                                        <th>Contact Number</th>
+                                        <th>Relation</th>
+                                        <th>Percentage</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input class="table-input" type="text" name="benefit_first_name_0" id="benefit_first_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="benefit-first-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="benefit_last_name_0" id="benefit_last_name_0"
+                                                pattern="^[A-Za-z\s\-]*$">
+                                            <div id="benefit-last-name-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="benefit_id_number_0" id="benefit_id_number_0"
+                                                maxlength="13" pattern="^\d{1,13}$">
+                                            <div id="benefit-id-number-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><input class="table-input" type="text" name="benefit_contact_no_0" id="benefit_contact_no_0"
+                                                pattern="^(0|\+)\d{9,11}$">
+                                            <div id="benefit-contact-no-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td><select class="table-input" name="benefit_relation_0" id="benefit_relation_0" class="dropdowns">
+                                                <option value="" disabled selected></option>
+                                                <option value="?">?</option>
+                                            </select></td>
+                                        <td><input class="table-input" type="number" name="percentage_0" id="percentage_0"
+                                                pattern="^[0-9.\s]*$">
+                                            <div id="percentage-error-0" class="error-message">Invalid input.
+                                            </div>
+                                        </td>
+                                        <td></td> <!-- empty cell for action-->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="button-container">
+                                <button class="add-member" type="button" id="add-benefit-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="one-input">
+                            <div class="input-field">
+                                <label for="benefit_total">Total:</label>
+                                <input type="text" name="benefit_total" id="benefit_total" class="totals" readonly>
+                            </div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                            <!-- filler div -->
+                            <div class="input-field"></div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="button-style" type="submit">Submit</button>
+                <button class="button-style" type="reset">Reset </button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="funeral-form.js"></script>
+    <script src="form-validation.js"></script>
+    <script src="form_submission.js"></script>
+</body>
+
+</html>

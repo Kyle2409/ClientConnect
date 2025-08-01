@@ -7,12 +7,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import CustomerSignupForm from "@/components/customer-signup-form";
+import ComprehensiveCustomerForm from "@/components/comprehensive-customer-form";
 import { Users, TrendingUp, Phone, Trophy, Plus, Search } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import type { Customer, Product } from "@shared/schema";
 
 export default function AgentDashboard() {
   const [showSignupForm, setShowSignupForm] = useState(false);
+  const [showComprehensiveForm, setShowComprehensiveForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("all");
 
@@ -89,10 +91,16 @@ export default function AgentDashboard() {
               <h1 className="text-2xl font-bold text-gray-900">Agent Dashboard</h1>
               <p className="text-gray-600">Manage your leads and customers</p>
             </div>
-            <Button onClick={() => setShowSignupForm(true)}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Customer
-            </Button>
+            <div className="space-x-2">
+              <Button onClick={() => setShowSignupForm(true)} variant="outline">
+                <Plus className="h-4 w-4 mr-2" />
+                Quick Add
+              </Button>
+              <Button onClick={() => setShowComprehensiveForm(true)}>
+                <Plus className="h-4 w-4 mr-2" />
+                Comprehensive Form
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -249,6 +257,11 @@ export default function AgentDashboard() {
       <CustomerSignupForm
         open={showSignupForm}
         onOpenChange={setShowSignupForm}
+      />
+      
+      <ComprehensiveCustomerForm
+        open={showComprehensiveForm}
+        onOpenChange={setShowComprehensiveForm}
       />
     </div>
   );

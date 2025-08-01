@@ -1,0 +1,1248 @@
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('add-client-btn').addEventListener('click', function () {
+        var table = document.getElementById('client-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var clientIdCell = newRow.insertCell(0);
+        clientIdCell.textContent = rowCount + 1;
+
+        var firstNameCell = newRow.insertCell(1);
+        firstNameCell.innerHTML = `<input class="table-input" type="text" name="client_first_name_${rowCount}" id="client_first_name_${rowCount}">`;
+
+        var lastNameCell = newRow.insertCell(2);
+        lastNameCell.innerHTML = `<input class="table-input" type="text" name="client_last_name_${rowCount}" id="client_last_name_${rowCount}">`;
+
+        var dobCell = newRow.insertCell(3);
+        dobCell.innerHTML = `<input class="dob-table-input" type="date" name="client_dob_${rowCount}" id="client_dob_${rowCount}" onfocus="'showPicker' in this && this.showPicker()">`;
+
+        var ageCell = newRow.insertCell(4);
+        ageCell.innerHTML = `<input class="age-table-input" type="text" name="client_age_${rowCount}" id="client_age_${rowCount}" readonly>`;
+
+        var relationCell = newRow.insertCell(5);
+        relationCell.innerHTML = `<select class="table-input" name="client_relation_${rowCount}" id="client_relation_${rowCount}" class="dropdowns">
+                                      <option value="" disabled selected></option>
+                                      <option value="main_member">Main Member</option>
+                                      <option value="spouse">Spouse/Partner</option>
+                                      <option value="son">Son</option>
+                                      <option value="daughter">Daughter</option>
+                                  </select>`;
+
+        var coverAmtCell = newRow.insertCell(6);
+        coverAmtCell.innerHTML = `<input class="table-input" type="text" name="client_cover_amt_${rowCount}" id="client_cover_amt_${rowCount}" disabled>`;
+
+        var premiumCell = newRow.insertCell(7);
+        premiumCell.innerHTML = `<input class="table-input" type="text" name="client_premium_${rowCount}" id="client_premium_${rowCount}" disabled>`;
+
+        var actionCell = newRow.insertCell(8);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            updateClientIds();
+            calculateTotalPremiumBaseCover();
+        });
+        attachEventListenersClientOne(rowCount);
+    });
+
+    function updateClientIds() {
+        var table = document.getElementById('client-table').getElementsByTagName('tbody')[0];
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].cells[0].textContent = i + 1;
+        }
+    }
+
+    document.getElementById('add-client-two-btn').addEventListener('click', function () {
+        var table = document.getElementById('client-two-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var firstNameCell = newRow.insertCell(0);
+        firstNameCell.innerHTML = `<input class="table-input" type="text" name="two_client_first_name_${rowCount}" id="two_client_first_name_${rowCount}">`;
+
+        var lastNameCell = newRow.insertCell(1);
+        lastNameCell.innerHTML = `<input class="table-input" type="text" name="two_client_last_name_${rowCount}" id="two_client_last_name_${rowCount}">`;
+
+        var dobCell = newRow.insertCell(2);
+        dobCell.innerHTML = `<input class="dob-table-input" type="date" name="two_client_dob_${rowCount}" id="two_client_dob_${rowCount}"
+        onfocus="'showPicker' in this && this.showPicker()">`;
+
+        var ageCell = newRow.insertCell(3);
+        ageCell.innerHTML = `<input class="age-table-input" type="text" name="two_client_age_${rowCount}" id="two_client_age_${rowCount}" readonly>`;
+
+        var relationCell = newRow.insertCell(4);
+        relationCell.innerHTML = `<select class="table-input" name="two_client_relation_${rowCount}" id="two_client_relation_${rowCount}" class="dropdowns">
+                                    <option value="" disabled selected></option>
+                                    <option value="main_member">Main Member</option>
+                                    <option value="spouse">Spouse/Partner</option>
+                                    <option value="son">Son</option>
+                                    <option value="daughter">Daughter</option>
+                                    </select>`;
+
+        var coverAmtCell = newRow.insertCell(5);
+        coverAmtCell.innerHTML = `<input class="table-input" type="text" name="two_client_cover_amt_${rowCount}" id="two_client_cover_amt_${rowCount}" disabled>`;
+
+        var premiumCell = newRow.insertCell(6);
+        premiumCell.innerHTML = `<input class="table-input" type="text" name="two_client_premium_${rowCount}" id="two_client_premium_${rowCount}" disabled>`;
+
+        var actionCell = newRow.insertCell(7);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            calculateTotalPremiumBaseCover()
+        });
+        attachEventListenersClientTwo(rowCount);
+    });
+
+    document.getElementById('add-parent-btn').addEventListener('click', function () {
+        var table = document.getElementById('parent-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var firstNameCell = newRow.insertCell(0);
+        firstNameCell.innerHTML = `<input class="table-input" type="text" name="parent_first_name_${rowCount}" id="parent_first_name_${rowCount}">`;
+
+        var lastNameCell = newRow.insertCell(1);
+        lastNameCell.innerHTML = `<input class="table-input" type="text" name="parent_last_name_${rowCount}" id="parent_last_name_${rowCount}">`;
+
+        var dobCell = newRow.insertCell(2);
+        dobCell.innerHTML = `<input class="dob-table-input" type="date" name="parent_dob_${rowCount}" id="parent_dob_${rowCount}" 
+                                onfocus="'showPicker' in this && this.showPicker()">`;
+
+        var ageCell = newRow.insertCell(3);
+        ageCell.innerHTML = `<input class="age-table-input" type="text" name="parent_age_${rowCount}" id="parent_age_${rowCount}" readonly>`;
+
+        var relationCell = newRow.insertCell(4);
+        relationCell.innerHTML = `<select class="table-input" name="parent_relation_${rowCount}" id="parent_relation_${rowCount}" class="dropdowns">
+                                    <option value="" disabled selected></option>
+                                    <option value="mother">Mother</option>
+                                    <option value="mother-in-law">Mother-in-law</option>
+                                    <option value="father">Father</option>
+                                    <option value="father-in-law">Father-in-law</option>
+                                    </select>`;
+
+        var coverAmtCell = newRow.insertCell(5);
+        coverAmtCell.innerHTML = `<input class="table-input" type="text" name="parent_cover_amt_${rowCount}" id="parent_cover_amt_${rowCount}" disabled>`;
+
+        var premiumCell = newRow.insertCell(6);
+        premiumCell.innerHTML = `<input class="table-input" type="text" name="parent_premium_${rowCount}" id="parent_premium_${rowCount}" disabled>`;
+
+        var actionCell = newRow.insertCell(7);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            calculateTotalPremiumParent();
+        });
+        atttachEventListenersParent(rowCount);
+    });
+
+    document.getElementById('add-extended-btn').addEventListener('click', function () {
+        var table = document.getElementById('extended-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var firstNameCell = newRow.insertCell(0);
+        firstNameCell.innerHTML = `<input class="table-input" type="text" name="extended_first_name_${rowCount}" id="extended_name_${rowCount}">`;
+
+        var lastNameCell = newRow.insertCell(1);
+        lastNameCell.innerHTML = `<input class="table-input" type="text" name="extended_last_name_${rowCount}" id="extended_last_name_${rowCount}">`;
+
+        var dobCell = newRow.insertCell(2);
+        dobCell.innerHTML = `<input class="dob-table-input" type="date" name="extended_dob_${rowCount}" id="extended_dob_${rowCount}"
+                                onfocus="'showPicker' in this && this.showPicker()">`;
+
+        var ageCell = newRow.insertCell(3);
+        ageCell.innerHTML = `<input class="age-table-input" type="text" name="extended_age_${rowCount}" id="extended_age_${rowCount}" readonly>`;
+
+        var relationCell = newRow.insertCell(4);
+        relationCell.innerHTML = `<select class="table-input" name="extended_relation_${rowCount}" id="extended_relation_${rowCount}" class="dropdowns">
+                                    <option value="" disabled selected></option>
+                                    <option value="?">?</option>
+                                    </select>`;
+
+        var coverAmtCell = newRow.insertCell(5)
+        coverAmtCell.innerHTML = `<input class="table-input" type="text" name="extended_cover_amt_${rowCount}" id="extended_cover_amt_${rowCount}" disabled>`;
+
+        var premiumCell = newRow.insertCell(6);
+        premiumCell.innerHTML = `<input class="table-input" type="text" name="extended_premium_${rowCount}" id="extended_premium_${rowCount}" disabled>`;
+
+        var actionCell = newRow.insertCell(7);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            calculateTotalPremiumExtended();
+        });
+        attachEventListenersExtended(rowCount);
+    });
+
+    document.getElementById('add-benefit-btn').addEventListener('click', function () {
+        var table = document.getElementById('benefit-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var firstNameCell = newRow.insertCell(0);
+        firstNameCell.innerHTML = `<input class="table-input" type="text" name="benefit_first_name_${rowCount}" id="benefit_first_name_${rowCount}">`;
+
+        var lastNameCell = newRow.insertCell(1);
+        lastNameCell.innerHTML = `<input class="table-input" type="text" name="benefit_last_name_${rowCount}" id="benefit_last_name_${rowCount}">`;
+
+        var idNumberCell = newRow.insertCell(2);
+        idNumberCell.innerHTML = `<input class="table-input" type="text" name="benefit_id_number_${rowCount}" id="benefit_id_number_${rowCount}">`;
+
+        var contactNumberCell = newRow.insertCell(3);
+        contactNumberCell.innerHTML = `<input class="table-input" type="text" name="benefit_contact_no_${rowCount}" id="benefit_contact_no_${rowCount}">`;
+
+        var relationCell = newRow.insertCell(4);
+        relationCell.innerHTML = `<select class="table-input" name="benefit_relation_${rowCount}" id="benefit_relation_${rowCount}" class="dropdowns">
+                                    <option value="" disabled selected></option>
+                                    <option value="?">?</option>
+                                    </select>`;
+
+        var percentageCell = newRow.insertCell(5);
+        percentageCell.innerHTML = `<input class="table-input" type="number" name="percentage_${rowCount}" id="percentage_${rowCount}">`;
+
+        var actionCell = newRow.insertCell(6);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            updateTotalPercentage();
+        });
+        newRow.querySelector('input[type="number"]').addEventListener('blur', updateTotalPercentage);
+        updateTotalPercentage();
+    });
+
+    document.getElementById('add-accidental-btn').addEventListener('click', function () {
+        var table = document.getElementById('accidental-table').getElementsByTagName('tbody')[0];
+        var rowCount = table.getElementsByTagName('tr').length;
+        var newRow = table.insertRow(rowCount);
+
+        var memberNameCell = newRow.insertCell(0);
+        memberNameCell.innerHTML = `<input class="table-input" type="text" name="accidental_member_name_${rowCount}" id="accidental_member_name_${rowCount}">`;
+
+        var dobCell = newRow.insertCell(1);
+        dobCell.innerHTML = `<input class="dob-table-input" type="date" name="accidental_dob_${rowCount}" id="accidental_dob_${rowCount}" onfocus="'showPicker' in this && this.showPicker()">`;
+
+        var ageCell = newRow.insertCell(2);
+        ageCell.innerHTML = `<input class="age-table-input" type="text" name="accidental_age_${rowCount}" id="accidental_age_${rowCount}" readonly>`;
+
+        var relationCell = newRow.insertCell(3);
+        relationCell.innerHTML = `<select class="table-input" name="accidental_relation_${rowCount}" id="accidental_relation_${rowCount}" class="dropdowns">
+                                    <option value="" disabled selected></option>
+                                    <option value="main_member">Main Member</option>
+                                    <option value="spouse">Spouse/Partner</option>
+                                    </select>`;
+
+        var accidentalCoverCell = newRow.insertCell(4);
+        accidentalCoverCell.innerHTML = `<input class="table-input" type="text" name="accidental_cover_amt_${rowCount}" id="accidental_cover_amt_${rowCount}" disabled>`;
+
+        var accidentalPremiumCell = newRow.insertCell(5);
+        accidentalPremiumCell.innerHTML = `<input class="table-input" type="text" name="accidental_premium_${rowCount}" id="accidental_premium_${rowCount}" disabled>`;
+
+        var actionCell = newRow.insertCell(6);
+        actionCell.innerHTML = `<button type="button" class="delete-row-btn">X</button>`;
+
+        actionCell.querySelector('.delete-row-btn').addEventListener('click', function () {
+            table.deleteRow(newRow.rowIndex - 1);
+            calculateTotalPremiumAccidental();
+        });
+        attachEventListenersAccidental(rowCount);
+    });
+
+    const dobInputs = document.querySelectorAll('.dob-input');
+    const ageInputs = document.querySelectorAll('.age-input');
+
+    function calculateAge(dob) {
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    function attachEventListenersToDocument() {
+        document.addEventListener('change', function (event) {
+            const dobInput = event.target;
+            if (dobInput.classList.contains('dob-table-input')) {
+                const ageInput = dobInput.closest('tr').querySelector('.age-table-input');
+                if (ageInput) {
+                    const age = calculateAge(dobInput.value);
+                    ageInput.value = age;
+                }
+            }
+        });
+    }
+
+    dobInputs.forEach((dobInput, index) => {
+        dobInput.addEventListener('change', function () {
+            const age = calculateAge(dobInput.value);
+            ageInputs[index].value = age;
+        });
+    });
+
+    document.getElementById('same_address').addEventListener('change', function () {
+        if (this.checked) {
+            document.getElementById('postal_add_1').value = document.getElementById('physical_add_1').value;
+            document.getElementById('postal_add_2').value = document.getElementById('physical_add_2').value;
+            document.getElementById('postal_suburb').value = document.getElementById('physical_suburb').value;
+            document.getElementById('postal_code').value = document.getElementById('physical_postal_code').value;
+            document.getElementById('postal_province').value = document.getElementById('physical_province').value;
+        } else {
+            document.getElementById('postal_add_1').value = '';
+            document.getElementById('postal_add_2').value = '';
+            document.getElementById('postal_suburb').value = '';
+            document.getElementById('postal_code').value = '';
+            document.getElementById('postal_province').value = '';
+        }
+    });
+
+    document.getElementById('same_number').addEventListener('change', function () {
+        if (this.checked) {
+            document.getElementById('whatsapp').value = document.getElementById('mobile').value;
+            document.getElementById('sms').value = document.getElementById('mobile').value;
+        } else {
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('sms').value = '';
+        }
+    });
+
+    document.getElementById('spouse_same_number').addEventListener('change', function () {
+        if (this.checked) {
+            document.getElementById('spouse_whatsapp').value = document.getElementById('spouse_mobile').value;
+            document.getElementById('spouse_sms').value = document.getElementById('spouse_mobile').value;
+        } else {
+            document.getElementById('spouse_whatsapp').value = '';
+            document.getElementById('spouse_sms').value = '';
+        }
+    });
+
+    document.getElementById('upsell').addEventListener('change', function () {
+        const tierTwoContainer = document.getElementById('tier-two-container');
+        if (this.checked) {
+            tierTwoContainer.classList.remove('hidden');
+        } else {
+            tierTwoContainer.classList.add('hidden');
+        }
+    });
+
+    function calculateTotalExpenses() {
+        const fields = document.querySelectorAll('.expense-input');
+        let total = 0;
+
+        fields.forEach(field => {
+            const value = parseFloat(field.value) || 0;
+            total += value;
+        });
+
+        document.getElementById('total_expenses').value = 'R' + total.toFixed(2);
+
+        calculateIncomeAffordability();
+    }
+
+    function calculateIncomeAffordability() {
+        const income = parseFloat(document.getElementById('income_household').value) || 0;
+        const totalExpenses = parseFloat(document.getElementById('total_expenses').value) || 0;
+        const affordability = income - totalExpenses;
+
+        document.getElementById('income_affordability').value = 'R' + affordability.toFixed(2);
+    }
+
+    document.querySelectorAll('.expense-input').forEach(input => {
+        input.addEventListener('input', calculateTotalExpenses);
+    });
+
+    document.getElementById('income_household').addEventListener('input', calculateIncomeAffordability);
+
+    calculateTotalExpenses();
+
+    function attachEventListenersClientOne(index) {
+        const relationField = document.getElementById(`client_relation_${index}`);
+        const ageField = document.getElementById(`client_age_${index}`);
+        const coverAmtCell = document.getElementById(`client_cover_amt_${index}`).parentElement;
+        const premiumField = document.getElementById(`client_premium_${index}`);
+
+        function updateCoverAmountField() {
+            const selectedRelation = relationField.value;
+            const age = ageField.value;
+
+            if (selectedRelation === 'main_member' && age) {
+                coverAmtCell.innerHTML = `
+                <select name="client_cover_amt_${index}" id="client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="5000">R5,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="30000">R30,000</option>
+                    <option value="40000">R40,000</option>
+                    <option value="50000">R50,000</option>
+                    <option value="60000">R60,000</option>
+                    <option value="70000">R70,000</option>
+                    <option value="80000">R80,000</option>
+                    <option value="90000">R90,000</option>
+                    <option value="100000">R100,000</option>
+                </select>
+            `;
+                document.getElementById(`client_cover_amt_${index}`).addEventListener('change', calculatePremium);
+            } else if (selectedRelation === 'spouse' && age) {
+                coverAmtCell.innerHTML = `
+                <select name="client_cover_amt_${index}" id="client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="5000">R5,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="30000">R30,000</option>
+                    <option value="40000">R40,000</option>
+                    <option value="50000">R50,000</option>
+                    <option value="60000">R60,000</option>
+                    <option value="70000">R70,000</option>
+                    <option value="80000">R80,000</option>
+                    <option value="90000">R90,000</option>
+                    <option value="100000">R100,000</option>
+                </select>
+            `;
+                document.getElementById(`client_cover_amt_${index}`).addEventListener('change', calculatePremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 0 && age <= 5) {
+                coverAmtCell.innerHTML = `
+                <select name="client_cover_amt_${index}" id="client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                </select>
+            `;
+                document.getElementById(`client_cover_amt_${index}`).addEventListener('change', calculatePremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 6 && age <= 13) {
+                coverAmtCell.innerHTML = `
+                <select name="client_cover_amt_${index}" id="client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="11000">R11,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="13000">R13,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="15000">R15,000</option>
+                </select>
+            `;
+                document.getElementById(`client_cover_amt_${index}`).addEventListener('change', calculatePremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 14 && age <= 20) {
+                coverAmtCell.innerHTML = `
+                <select name="client_cover_amt_${index}" id="client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="11000">R11,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="13000">R13,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="15000">R15,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="17000">R17,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="19000">R19,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="21000">R21,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="23000">R23,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="25000">R25,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="27000">R27,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="29000">R29,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`client_cover_amt_${index}`).addEventListener('change', calculatePremium);
+            } else {
+                coverAmtCell.innerHTML = `<input type="text" name="client_cover_amt_${index}" id="client_cover_amt_${index}" disabled>`;
+                premiumField.value = '';
+            }
+        }
+
+        function calculatePremium() {
+            const coverAmount = document.getElementById(`client_cover_amt_${index}`).value;
+            const selectedRelation = relationField.value;
+            const age = parseInt(ageField.value, 10);
+            let rate;
+
+            if (age >= 0 && age <= 5) {
+                rate = 1.95;
+            } else if (age >= 6 && age <= 13) {
+                rate = 2.05;
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 14 && age <= 20) {
+                rate = 2.25;
+            } else if ((selectedRelation !== 'son' && selectedRelation !== 'daughter') && age >= 18 && age <= 45) {
+                rate = 2.55;
+            } else if (age >= 46 && age <= 50) {
+                rate = 2.95;
+            } else if (age >= 51 && age <= 70) {
+                rate = 3.55;
+            } else {
+                rate = 0;
+            }
+
+            if (rate > 0 && coverAmount) {
+                const premium = (coverAmount / 1000) * rate;
+                premiumField.value = `R${premium.toFixed(2)}`;
+            } else {
+                premiumField.value = '';
+            }
+            calculateTotalPremiumBaseCover();
+        }
+
+        relationField.addEventListener('change', updateCoverAmountField);
+        ageField.addEventListener('input', function () {
+            updateCoverAmountField();
+            calculatePremium();
+        });
+    }
+    attachEventListenersClientOne(0);
+    attachEventListenersToDocument();
+
+    function attachEventListenersClientTwo(index) {
+        const relationField = document.getElementById(`two_client_relation_${index}`);
+        const ageField = document.getElementById(`two_client_age_${index}`);
+        const coverAmtCell = document.getElementById(`two_client_cover_amt_${index}`).parentElement;
+        const premiumField = document.getElementById(`two_client_premium_${index}`);
+
+        function updateTwoCoverAmountField() {
+            const selectedRelation = relationField.value;
+            const age = ageField.value;
+
+            if (selectedRelation === 'main_member' && age) {
+                coverAmtCell.innerHTML = `
+                <select name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="5000">R5,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="30000">R30,000</option>
+                    <option value="40000">R40,000</option>
+                    <option value="50000">R50,000</option>
+                    <option value="60000">R60,000</option>
+                    <option value="70000">R70,000</option>
+                    <option value="80000">R80,000</option>
+                    <option value="90000">R90,000</option>
+                    <option value="100000">R100,000</option>
+                </select>
+            `;
+                document.getElementById(`two_client_cover_amt_${index}`).addEventListener('change', calculateTwoPremium);
+            } else if (selectedRelation === 'spouse' && age) {
+                coverAmtCell.innerHTML = `
+                <select name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="5000">R5,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="30000">R30,000</option>
+                    <option value="40000">R40,000</option>
+                    <option value="50000">R50,000</option>
+                    <option value="60000">R60,000</option>
+                    <option value="70000">R70,000</option>
+                    <option value="80000">R80,000</option>
+                    <option value="90000">R90,000</option>
+                    <option value="100000">R100,000</option>
+                </select>
+            `;
+                document.getElementById(`two_client_cover_amt_${index}`).addEventListener('change', calculateTwoPremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 0 && age <= 5) {
+                coverAmtCell.innerHTML = `
+                <select name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    option value="6000">R6,000</option>
+                    option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                </select>
+            `;
+                document.getElementById(`two_client_cover_amt_${index}`).addEventListener('change', calculateTwoPremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 6 && age <= 13) {
+                coverAmtCell.innerHTML = `
+                <select name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="11000">R11,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="13000">R13,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="15000">R15,000</option>
+                </select>
+            `;
+                document.getElementById(`two_client_cover_amt_${index}`).addEventListener('change', calculateTwoPremium);
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 14 && age <= 20) {
+                coverAmtCell.innerHTML = `
+                <select name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="1000">R1,000</option>
+                    <option value="2000">R2,000</option>
+                    <option value="3000">R3,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="5000">R5,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="7000">R7,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="9000">R9,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="11000">R11,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="13000">R13,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="15000">R15,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="17000">R17,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="19000">R19,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="21000">R21,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="23000">R23,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="25000">R25,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="27000">R27,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="29000">R29,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`two_client_cover_amt_${index}`).addEventListener('change', calculateTwoPremium);
+            } else {
+                coverAmtCell.innerHTML = `<input type="text" name="two_client_cover_amt_${index}" id="two_client_cover_amt_${index}" disabled>`;
+                premiumField.value = '';
+            }
+        }
+
+        function calculateTwoPremium() {
+            const coverAmount = document.getElementById(`two_client_cover_amt_${index}`).value;
+            const selectedRelation = relationField.value;
+            const age = parseInt(ageField.value, 10);
+            let rate;
+
+            if (age >= 0 && age <= 5) {
+                rate = 1.95;
+            } else if (age >= 6 && age <= 13) {
+                rate = 2.05;
+            } else if ((selectedRelation === 'son' || selectedRelation === 'daughter') && age >= 14 && age <= 20) {
+                rate = 2.25;
+            } else if ((selectedRelation !== 'son' && selectedRelation !== 'daughter') && age >= 18 && age <= 45) {
+                rate = 2.55;
+            } else if (age >= 46 && age <= 50) {
+                rate = 2.95;
+            } else if (age >= 51 && age <= 70) {
+                rate = 3.55;
+            } else {
+                rate = 0;
+            }
+
+            if (rate > 0 && coverAmount) {
+                const premium = (coverAmount / 1000) * rate;
+                premiumField.value = `R${premium.toFixed(2)}`;
+            } else {
+                premiumField.value = '';
+            }
+            calculateTotalPremiumBaseCover();
+        }
+
+        relationField.addEventListener('change', updateTwoCoverAmountField);
+        ageField.addEventListener('input', function () {
+            updateTwoCoverAmountField();
+            calculateTwoPremium();
+        });
+    }
+    attachEventListenersClientTwo(0);
+
+    function atttachEventListenersParent(index) {
+        const relationField = document.getElementById(`parent_relation_${index}`);
+        const ageField = document.getElementById(`parent_age_${index}`);
+        const coverAmtCell = document.getElementById(`parent_cover_amt_${index}`).parentElement;
+        const premiumField = document.getElementById(`parent_premium_${index}`);
+
+        function updateParentCoverAmountField() {
+            const selectedRelation = relationField.value;
+            const age = ageField.value;
+
+            if (selectedRelation && age >= 18 && age <= 25) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 26 && age <= 30) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 31 && age <= 35) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 36 && age <= 40) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 41 && age <= 45) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 46 && age <= 50) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 51 && age <= 55) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 56 && age <= 60) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 61 && age <= 65) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 66 && age <= 70) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else if (selectedRelation && age >= 71 && age <= 75) {
+                coverAmtCell.innerHTML = `
+                <select name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="2000">R2,000</option>
+                    <option value="4000">R4,000</option>
+                    <option value="6000">R6,000</option>
+                    <option value="8000">R8,000</option>
+                    <option value="10000">R10,000</option>
+                    <option value="12000">R12,000</option>
+                    <option value="14000">R14,000</option>
+                    <option value="16000">R16,000</option>
+                    <option value="18000">R18,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="22000">R22,000</option>
+                    <option value="24000">R24,000</option>
+                    <option value="26000">R26,000</option>
+                    <option value="28000">R28,000</option>
+                    <option value="30000">R30,000</option>
+                </select>
+            `;
+                document.getElementById(`parent_cover_amt_${index}`).addEventListener('change', calculateParentPremium);
+            } else {
+                coverAmtCell.innerHTML = `<input type="text" name="parent_cover_amt_${index}" id="parent_cover_amt_${index}" disabled>`;
+                premiumField.value = '';
+            }
+        }
+
+        function calculateParentPremium() {
+            const coverAmount = document.getElementById(`parent_cover_amt_${index}`).value;
+            const age = parseInt(ageField.value, 10);
+            let rate;
+
+            if (age >= 18 && age <= 25) {
+                rate = 2.48;
+            } else if (age >= 26 && age <= 30) {
+                rate = 3.88;
+            } else if (age >= 31 && age <= 35) {
+                rate = 4.72;
+            } else if (age >= 36 && age <= 40) {
+                rate = 5.48;
+            } else if (age >= 41 && age <= 45) {
+                rate = 5.64;
+            } else if (age >= 46 && age <= 50) {
+                rate = 5.76;
+            } else if (age >= 51 && age <= 55) {
+                rate = 6.44;
+            } else if (age >= 56 && age <= 60) {
+                rate = 8.94;
+            } else if (age >= 61 && age <= 65) {
+                rate = 13.12;
+            } else if (age >= 66 && age <= 70) {
+                rate = 20.08;
+            } else if (age >= 71 && age <= 75) {
+                rate = 31.84;
+            } else {
+                rate = 0;
+            }
+
+            if (rate > 0 && coverAmount) {
+                const premium = (coverAmount / 2000) * rate;
+                premiumField.value = `R${premium.toFixed(2)}`;
+            } else {
+                premiumField.value = '';
+            }
+            calculateTotalPremiumParent();
+        }
+
+        relationField.addEventListener('change', updateParentCoverAmountField);
+        ageField.addEventListener('input', function () {
+            updateParentCoverAmountField();
+            calculateParentPremium();
+        })
+    }
+    atttachEventListenersParent(0);
+
+    function attachEventListenersExtended(index) {
+        const relationField = document.getElementById(`extended_relation_${index}`);
+        const ageField = document.getElementById(`extended_age_${index}`);
+        const coverAmtCell = document.getElementById(`extended_cover_amt_${index}`).parentElement;
+        const premiumField = document.getElementById(`extended_premium_${index}`);
+
+        function updateExtendedCoverAmountField() {
+            const selectedRelation = relationField.value;
+            const age = ageField.value;
+
+            if (selectedRelation && age) {
+                coverAmtCell.innerHTML = `
+                <select name="extended_cover_amt_${index}" id="extended_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="10000">R10,000</option>
+                    <option value="20000">R20,000</option>
+                    <option value="30000">R30,000</option>
+                    <option value="40000">R40,000</option>
+                    <option value="50000">R50,000</option>
+                    <option value="60000">R60,000</option>
+                    <option value="70000">R70,000</option>
+                    <option value="80000">R80,000</option>
+                    <option value="90000">R90,000</option>
+                    <option value="100000">R100,000</option>
+                </select>
+            `;
+                document.getElementById(`extended_cover_amt_${index}`).addEventListener('change', calculateExtendedPremium);
+            } else {
+                coverAmtCell.innerHTML = `<input type="text" name="extended_cover_amt_${index}" id="extended_cover_amt_${index}" disabled>`;
+                premiumField.value = '';
+            }
+        }
+
+        function calculateExtendedPremium() {
+            const coverAmount = document.getElementById(`extended_cover_amt_${index}`).value;
+            const age = parseInt(ageField.value, 10);
+            let rate;
+
+            if (age >= 18 && age <= 45) {
+                rate = 2.55;
+            } else if (age >= 46 && age <= 55) {
+                rate = 3.55;
+            } else if (age >= 56 && age <= 64) {
+                rate = 4.55;
+            } else {
+                rate = 0;
+            }
+
+            if (rate > 0 && coverAmount) {
+                const premium = (coverAmount / 1000) * rate;
+                premiumField.value = `R${premium.toFixed(2)}`;
+            } else {
+                premiumField.value = '';
+            }
+            calculateTotalPremiumExtended();
+        }
+
+        relationField.addEventListener('change', updateExtendedCoverAmountField);
+        ageField.addEventListener('input', function () {
+            updateExtendedCoverAmountField();
+            calculateExtendedPremium();
+        });
+    }
+    attachEventListenersExtended(0);
+
+    function attachEventListenersAccidental(index) {
+        const relationField = document.getElementById(`accidental_relation_${index}`);
+        const ageField = document.getElementById(`accidental_age_${index}`);
+        const coverAmtCell = document.getElementById(`accidental_cover_amt_${index}`).parentElement;
+        const premiumField = document.getElementById(`accidental_premium_${index}`);
+
+        function updateAccidentalCoverAmountField() {
+            const selectedRelation = relationField.value;
+            const age = ageField.value;
+
+            if (selectedRelation && age) {
+                coverAmtCell.innerHTML = `
+                <select name="accidental_cover_amt_${index}" id="accidental_cover_amt_${index}" class="dropdowns">
+                    <option value="" disabled selected></option>
+                    <option value="50000">R50,000</option>
+                    <option value="100000">R100,000</option>
+                    <option value="150000">R150,000</option>
+                    <option value="200000">R200,000</option>
+                    <option value="250000">R250,000</option>
+                    <option value="300000">R300,000</option>
+                    <option value="350000">R350,000</option>
+                    <option value="400000">R400,000</option>
+                    <option value="450000">R450,000</option>
+                    <option value="500000">R500,000</option>
+                    <option value="550000">R550,000</option>
+                    <option value="600000">R600,000</option>
+                    <option value="650000">R650,000</option>
+                    <option value="700000">R700,000</option>
+                    <option value="750000">R750,000</option>
+                    <option value="800000">R800,000</option>
+                    <option value="850000">R850,000</option>
+                    <option value="900000">R900,000</option>
+                    <option value="950000">R950,000</option>
+                    <option value="1000000">R1,000,000</option>
+                    <option value="1500000">R1,500,000</option>
+                </select>
+            `;
+                document.getElementById(`accidental_cover_amt_${index}`).addEventListener('change', calculateAccidentalPremium);
+            } else {
+                coverAmtCell.innerHTML = `<input type="text" name="accidental_cover_amt_${index}" id="accidental_cover_amt_${index}" disabled>`;
+                premiumField.value = '';
+            }
+        }
+
+        function calculateAccidentalPremium() {
+            const coverAmount = document.getElementById(`accidental_cover_amt_${index}`).value;
+            const age = parseInt(ageField.value, 10);
+            let rate;
+
+            if (age >= 25 && age <= 30) {
+                rate = 0.52;
+            } else if (age >= 31 && age <= 35) {
+                rate = 0.62;
+            } else if (age >= 36 && age <= 40) {
+                rate = 0.65;
+            } else if (age >= 41 && age <= 45) {
+                rate = 0.72;
+            } else if (age >= 46 && age <= 50) {
+                rate = 0.75;
+            } else if (age >= 51 && age <= 55) {
+                rate = 0.82;
+            } else if (age >= 56 && age <= 60) {
+                rate = 0.87;
+            } else {
+                rate = 0;
+            }
+
+            if (rate > 0 && coverAmount) {
+                const premium = (coverAmount / 1000) * rate;
+                premiumField.value = `R${premium.toFixed(2)}`;
+            } else {
+                premiumField.value = '';
+            }
+            calculateTotalPremiumAccidental();
+        }
+
+        relationField.addEventListener('change', updateAccidentalCoverAmountField);
+        ageField.addEventListener('input', function () {
+            updateAccidentalCoverAmountField();
+            calculateAccidentalPremium();
+        });
+    }
+    attachEventListenersAccidental(0);
+
+    function updateTotalPercentage() {
+        var table = document.getElementById('benefit-table').getElementsByTagName('tbody')[0];
+        var rows = table.getElementsByTagName('tr');
+        var total = 0;
+
+        for (var i = 0; i < rows.length; i++) {
+            var percentageInput = rows[i].querySelector('input[type="number"]');
+            if (percentageInput && percentageInput.value) {
+                total += parseFloat(percentageInput.value);
+            }
+        }
+
+        document.getElementById('benefit_total').value = total.toFixed(2) + '%';
+
+        if (total > 100) {
+            alert('Total percentage exceeds 100%. Please adjust the values.');
+        }
+    }
+    
+    updateTotalPercentage();
+
+    function attachPercentageEventListeners() {
+        var percentageInputs = document.querySelectorAll('input[type="number"][name^="percentage_"');
+        percentageInputs.forEach(function(input) {
+            input.addEventListener('blur', updateTotalPercentage);
+        });
+    }
+
+    attachPercentageEventListeners();
+
+    function calculateTotalPremiumBaseCover() {
+        let totalPremium = 0;
+
+        document.querySelectorAll('[id^=client_premium_]').forEach(premiumField => {
+            const premiumValue = parseFloat(premiumField.value.replace('R', ''));
+            if (!isNaN(premiumValue)) {
+                totalPremium += premiumValue;
+            }
+        });
+
+        document.querySelectorAll('[id^=two_client_premium_]').forEach(premiumField => {
+            const premiumValue = parseFloat(premiumField.value.replace('R', ''));
+            if (!isNaN(premiumValue)) {
+                totalPremium += premiumValue;
+            }
+        });
+        document.getElementById('total').value = 'R' + totalPremium.toFixed(2);
+    }
+
+    calculateTotalPremiumBaseCover();
+
+    function calculateTotalPremiumParent() {
+        let totalPremium = 0;
+
+        document.querySelectorAll('[id^=parent_premium_]').forEach(premiumField => {
+            const premiumValue = parseFloat(premiumField.value.replace('R', ''));
+            if (!isNaN(premiumValue)) {
+                totalPremium += premiumValue;
+            }
+        });
+        document.getElementById('parent_total').value = 'R' + totalPremium.toFixed(2);
+    }
+
+    calculateTotalPremiumParent();
+
+    function calculateTotalPremiumExtended() {
+        let totalPremium = 0;
+
+        document.querySelectorAll('[id^=extended_premium_]').forEach(premiumField => {
+            const premiumValue = parseFloat(premiumField.value.replace('R', ''));
+            if (!isNaN(premiumValue)) {
+                totalPremium += premiumValue;
+            }
+        });
+        document.getElementById('extended_total').value = 'R' + totalPremium.toFixed(2);
+    }
+
+    calculateTotalPremiumExtended();
+
+    function calculateTotalPremiumAccidental() {
+        let totalPremium = 0;
+
+        document.querySelectorAll('[id^=accidental_premium_]').forEach(premiumField => {
+            const premiumValue = parseFloat(premiumField.value.replace('R', ''));
+            if (!isNaN(premiumValue)) {
+                totalPremium += premiumValue;
+            }
+        });
+        document.getElementById('accidental_total').value = 'R' + totalPremium.toFixed(2);
+    }
+
+    calculateTotalPremiumAccidental();
+});
